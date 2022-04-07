@@ -1,0 +1,149 @@
+{% extends "onlineCourses/layout.html" %}
+
+{% block body %}
+
+    <style>
+        #payment{
+            width: 80%;
+            margin-left: 10%;
+            margin-top: 40px;
+        }
+        .final{
+            width: 462px;
+            border: 1px solid #e8e9eb;
+            box-shadow: 0 0 1px 1px rgba(20,23,28,.1),0 3px 1px 0 rgba(20,23,28,.1);
+            margin-bottom: 10px;
+            position: fixed;
+            
+        }
+        .final-inside{
+            margin: 24px 24px 0;
+        }
+        .final-1{
+            line-height: 24px;
+            font-weight: 700;
+            font-size: 24px;
+            padding-bottom: 16px;
+            color: #29303b;
+        }
+        .final-2{
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 24px;
+            padding-bottom: 8px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #cacbcc;
+        }
+        .final-4{
+            font-size: 12px;
+            line-height: 19px;
+            margin-bottom: 8px;
+        }
+        .my-btn{
+            border: 1px solid transparent;
+            display: block;
+            background-color: #ec5252;
+            color: #fff;
+            width: 100%;
+            text-align: center;
+            padding: 16px 12px;
+            line-height: 1.35135;
+            border-radius: 2px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        .my-btn:hover{
+            color: #fff;
+            text-decoration: none;
+            background-color: #992337;
+            border-color: transparent;
+        }
+        .final-5{
+            width: 100%;
+            margin-bottom: 24px;
+        }
+        .o-detail{
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.33em;
+            margin-bottom: 32px;
+        }
+        .title{
+            font-size: 14px;
+            line-height: 1.43em;
+            color: #29303b;
+            font-weight: 700;
+        }
+        .first-row{
+            width: 90%;
+            margin-left: 5%;
+        }
+        img{
+            width: 40px;
+            height: 40px;
+        }
+        @media only screen and (max-width: 990px) {
+            .final{
+                position:inherit;
+                width: 100%;
+                margin-top: 50px;
+            }
+        }
+        
+    </style>
+    
+
+    <div id="payment">
+        <div class="row">
+            <div class="col-12 col-lg-7">
+                <div class="first-row">
+                    <div class="o-detail">Checkout</div>
+
+                    <div class="o-detail">Order Details</div>
+            
+                <div>
+                    {% for course in courses%}
+                    <div class="row mt-4">
+                        <div class="col-2" style="padding-right: 0;">
+                            <img src="{{course.image_link}}" alt="">
+                        </div>
+                        <div class="col-9" style="padding-left:0">
+                            <div class="title">
+                                {{course.title}}
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            ${{course.price}}
+                        </div>
+                    </div>
+                    {%endfor%}
+                </div>
+            </div>
+            </div>
+            <div class="col-12 col-lg-5">
+                <div class="final">
+                    <div class="final-inside">
+                        <div class="final-1">Summary</div>
+                        <div class="row final-2" style="width: 100%;margin-left: 0px;">
+                            <div class="col-9" style="margin-left: 0;padding-left: 0;">Orginal Price:</div>
+                            <div class="col-3" style="text-align: right;">${{total}}</div>
+                            <div class="col-9" style="margin-left: 0;padding-left: 0;">Coupon Discount:</div>
+                            <div class="col-3" style="text-align: right;">-${{discount}}</div>
+                        </div>
+                        <div class="row final-2" style="width: 100%;margin-left: 0px;border:none;font-weight: 700;">
+                            <div class="col-9" style="margin-left: 0;padding-left: 0;">Total:</div>
+                            <div class="col-3" style="text-align: right;">${{payment.roundedPrice}}</div>
+                        </div>
+                        <div class="final-4">
+                            Udemy is required by law to collect applicable transaction taxes for purchases made in certain tax jurisdictions.
+                        </div>
+                        <div class="final-5">
+                            <a href="{% url 'completepayment' %}" class="my-btn">Complete Payment</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

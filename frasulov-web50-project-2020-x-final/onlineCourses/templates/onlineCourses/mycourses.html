@@ -1,0 +1,403 @@
+{% extends "onlineCourses/layout.html" %}
+
+{% block body %}
+<style>
+    #upper{
+        padding-left: 15%;
+        background-color: #505763 !important;
+        color: white;
+    }
+    #lower{
+        width: 70%;
+        margin-top: 50px;
+        margin-left: 15%;
+    }
+    #upper h1{
+        padding-top: 35px;
+        padding-bottom: 15px;
+        color: white;
+        font-size: 30px;
+        font-weight: 400;
+        line-height: 1.287;
+        margin: 0;
+    }
+    #upper .nav-link{
+        color:white;
+        border:none;
+        border-bottom: 6px solid transparent;
+        color: #fff;
+        border-radius: 0;
+    }
+    #upper .nav-link:hover{
+        border-bottom-color: rgba(255,255,255,.7);
+        color: #fff;
+        outline: 0;
+        border-color: #e8e9eb #e8e9eb #ddd;
+        background: 0 0;
+        text-decoration: none;
+        color: #fff;
+    }
+    #upper .active{
+        background-color: transparent;
+        border-bottom: 6px solid transparent;
+        border-color: #e8e9eb #e8e9eb #ddd;
+    }
+    #upper a + a{
+        margin-left: 10px !important;
+    }
+    .card-details strong{
+        color: #29303b;
+        font-size: 13px;
+    }
+    .my-card{
+        width: 100%;
+        height: 100%;
+        display: block;
+        box-shadow: 0 0 1px 1px rgba(20,23,28,.1),0 3px 1px 0 rgba(20,23,28,.1);
+        /* border: 1px solid grey; */
+    }
+    .my-card:hover{
+        text-decoration: none;
+        box-shadow:0 2px 8px 2px rgba(20,23,28,.15);
+        transition:.2s ease;        
+
+    }
+    .my-card img{
+        width: 100%;
+        height: 150px;
+    }
+    .card-details{
+        margin: 10px;
+        padding-bottom: 15px;
+        transition: .2s ease;
+    }
+    .ins-detail{
+        color: #29303b;
+        font-size: 13px;
+    }
+    .price{
+        color: #3c3b37;;
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -0.02rem;
+        font-size: 16px;
+}
+</style>
+<style>
+    #nav-card .new-card{
+        padding: 10px 10px 10px 10px;
+       
+       
+    }
+    #nav-card .new-card + .new-card{
+        border-top: solid 1px #dedfe0;
+    }
+    .all-card{
+        box-shadow: 0 0 2px #dedfe0;
+        margin: 0;
+        padding: 0;
+    }
+    .new-card img{
+        width: 90%;
+        height: 75px;;
+    }
+    .new-card .course-title{
+        color: #29303b;
+    line-height: 1.2;
+    font-weight: 700;
+    font-size: 14px;
+    }
+    .new-card .lkjh{
+        display: block;
+        color: #007791;
+        background-color: transparent;
+        font-weight: 400;
+        text-decoration: none;
+        border: none;
+        font-size: 13px;
+        line-height: 1.6;
+        text-align: right;
+    }
+    .new-card .lkjh:hover{
+        color: #003845;
+        text-decoration: none;
+    }
+    .new-card div{
+        margin: 0 ;
+        padding: 0 ;
+    }
+    .new-card p {
+        text-align: right;
+        color: #ec5252;
+        font-size: 15px;
+        font-weight: 700;
+        margin: 0 0 2px 0;
+        /* padding: 0 0 0 8px; */
+    }
+    #nav-card h3{
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.2;
+        margin: 0 0 10px 0;
+        
+    }
+    .sdf{
+        color: #686f7a;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 1.43;
+    }
+    .pricesdf{
+        color: #29303b;
+        font-size: 36px;
+        font-weight: 700;
+        line-height: 1.43;
+    }
+    .addcard{
+        width: 100%;
+        cursor: pointer;
+        display: inline-flex;
+        padding: 16px 12px;
+        justify-content: center;
+        user-select: none;
+        vertical-align: bottom;
+        white-space: nowrap;
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -0.02rem;
+        font-size: 15px;
+        align-items: center;
+        border-radius: 4px;
+    }
+    .addcard{
+        background-color: #ec5252;
+        color: white;
+        border: none;
+
+    }
+    .addcard:hover{
+        background-color: #e61b1b;
+        color: white;
+        text-decoration: none;
+    }
+    hr{
+        height: 0;
+        border: none;
+        border-top: 1px solid #e8e9eb;
+    }
+    form input{
+        height: 34px;
+        padding: 0 10px;
+        font-size: 13px;
+        line-height: 1.287;
+        color: #29303b;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #8a92a3;
+        transition: border-color ease-in-out .08s,box-shadow ease-in-out .08s;
+        border-collapse: separate;
+        border-right: none;
+    }
+    form input:focus{
+        border-color: rgba(0,119,145,.5);
+        outline: none;
+        box-shadow: none;
+        box-shadow: inset 0 0 1px rgba(0,119,145,.5);
+    }
+    .if-nothing{
+        box-shadow: 0 0 2px #dedfe0;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 300px;
+        margin-bottom: 30px;
+        padding: 10px;
+        text-align: center;
+        font-size: 15px;
+            line-height: 1.43;
+            color: #29303b;
+        }
+    .if-nothing p{
+        text-align: center;
+        margin: 0 0 10.5px;
+        font-size: 15px;
+        line-height: 1.43;
+        color: #29303b;
+    }
+    .ccvvbb{
+        width: auto;
+        padding-right: 15px !important;
+        padding-left: 15px !important;
+    }
+    .ccvvbb:hover{
+        color:white;
+        text-decoration: none;
+    }
+    .shopping{
+        margin-bottom: 20px;
+        font-size: 120px;
+        color: #e8e9eb;
+        font-style: normal;
+        font-weight: 400;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+    }
+    .before-price{
+        color: #686f7a;
+        text-decoration: line-through;
+        font-size: 15px;
+        font-weight: 400;
+
+    }
+</style>
+<div id='upper'>
+    <h1>My courses</h1>
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <a class="nav-link" id="nav-allcourse-tab" data-toggle="tab" href="#nav-allcourse" role="tab" aria-controls="nav-allcourse" aria-selected="false">All courses</a>
+          <a class="nav-link" id="nav-wishlist-tab" data-toggle="tab" href="#nav-wishlist" role="tab" aria-controls="nav-wishlist" aria-selected="false">Wishlist</a>
+          <a class="nav-link" id="nav-card-tab" data-toggle="tab" href="#nav-card" role="tab" aria-controls="nav-card" aria-selected="false">Card</a>
+        </div>
+      </nav>
+</div>
+<div id="lower">
+    <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade" id="nav-allcourse" role="tabpanel" aria-labelledby="nav-allcourse-tab">
+        <div class="row">
+            {% for course in student.course.all%}
+            <div class="mt-4 col-12 col-sm-6 col-md-4 col-lg-3">
+                <a class="my-card" href="{% url 'viewcoursecontent' course.id %}">
+                    <img src="{{course.image_link}}" alt="">
+                    <div class="card-details">
+                        <strong>{{course.title}}</strong>
+                        <div class="ins-detail mt-2">
+                            {% for c in course.instructor.all %}
+                          <span style="text-decoration: underline;">{{ c }}</span>
+                          {% endfor %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% empty %}
+                <div class="d-flex justify-content-center" style="width: 100%;">
+                    <a href="/" class="addcard ccvvbb">Browse Courses Now</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="tab-pane fade" id="nav-wishlist" role="tabpanel" aria-labelledby="nav-wishlist-tab">
+        <div class="row">
+            {% for course in student.wishlist.all%}
+            <div class="mt-4 col-12 col-sm-6 col-md-4 col-lg-3">
+                <a class="my-card" href="{% url 'course' course.id %}">
+                    <img src="{{course.image_link}}" style="height: 150px;width: 100%;" alt="">
+                    <div class="card-details">
+                        <strong>{{course.title}}</strong>
+                        <div class="ins-detail mt-2">
+                         {% for c in course.instructor.all %}
+                          <span style="text-decoration: underline;">{{ c }}</span>
+                          {% endfor %}
+                        </div>
+                        {% if course.price == 0%}
+                        <div class="price d-flex justify-content-end">Free</div>
+                        {%else%}
+                        <div class="price d-flex justify-content-end">$ {{course.price}}</div>
+                        {%endif%}
+                    </div>
+                </a>
+            </div>
+            {% empty %}
+                <div class="d-flex justify-content-center" style="width: 100%;">
+                    <a href="/" class="addcard ccvvbb">Browse Courses Now</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div class="tab-pane fade" id="nav-card" role="tabpanel" aria-labelledby="nav-card-tab">
+        <h3>{{ student.card.all.count}} courses in card</h3>
+        {% if student.card.all.count %}
+        <div class="row">
+            <div class="col-12 col-lg-9 all-card">
+                {% for course in student.card.all %}
+                <div class="new-card">
+                    <div class="row">
+                        <div onclick="location.href='/course/{{course.id}}'" style="cursor: pointer;" class="col-3">
+                            <img src="{{course.image_link}}" alt="">
+                        </div>
+                        <div onclick="location.href='/course/{{course.id}}'" style="cursor: pointer;" class="col-7">
+                            <div class="course-title mb-1">
+                                {{ course.title }}
+                            </div>
+                            <div class="ins-detail">
+                                <span>By</span>
+                                {% for c in course.instructor.all %}
+                                 <span style="text-decoration: underline;">{{ c }}</span>
+                                {% endfor %}
+                            </div>
+                            <p class="d-block d-lg-none" style="float: left;">{{course.price}}<i class="fas fa-tag ml-2"></i></p>
+                        </div>
+                        <div  class="col-12 col-lg-2">
+                            {% if course.price == 0%}
+                            <p class="d-none d-lg-block">Free<i class="fas fa-tag ml-2"></i></p>
+                            {% else %}
+                            <p class="d-none d-lg-block">${{course.price}}<i class="fas fa-tag ml-2"></i></p>
+                            {%endif%}
+                            <a href="/card/remove/{{course.id}}" class="lkjh d-inline d-lg-block mr-4 mr-lg-0">Remove</a>
+                            <a href="/card/move/{{course.id}}" class="lkjh d-inline d-lg-block">Move to Wishlist</a>
+                        </div>
+                    </div>
+                    
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-12 col-lg-3 mt-3 mb-3 mt-lg-0 mb-lg-0" style="padding-right: 0;">
+                {% if payment_information.coupon.all.count == 0 %}
+                <div class="sdf">
+                    Total:
+                </div>
+                <div class="pricesdf">${{payment_information.total_price}}</div>
+                <a href="{% url 'payment' 'card'%}" class="addcard mt-2">Check out</a>
+                <hr>
+                <form action="{% url 'coupon' %}" method="POST">
+                    {% csrf_token %}
+                    <input name="coupon" type="text" placeholder="Enter Coupon"><button class="addcard" style="padding:0;width: auto;height: 34px;padding: 0 10px;font-size: 13px;border: 1px solid transparent;border-radius: 0;border-top-right-radius: 2px;border-bottom-right-radius: 2px;">Apply</button>
+                </form>
+                {%else%}
+                <div class="sdf">
+                    Total:
+                </div>
+                <div class="pricesdf">${{payment_information.roundedPrice}}</div>
+                <div class="before-price">${{total}}</div>
+                <div class="before-price" style="text-decoration: none;">{{payment_information.coupon.all.first.percentage}}% off</div>
+                <a href="{% url 'payment' 'card'%}" class="addcard mt-2">Check out</a>
+                <div class="mt-2">
+                    <div>Coupon:</div>
+                    <strong style="text-transform: uppercase;">{{payment_information.coupon.all.first.name}}</strong> is applied
+                </div>
+                {%endif%}
+            </div>
+        </div>
+        {%else%}
+        <div class="if-nothing">
+            <div class="shopping">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <p>Your cart is empty. Keep shopping to find a course!</p>
+        <a href="/" class="addcard ccvvbb">Keep Shopping</a>
+        </div>
+        {% endif %}
+    </div>
+  </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        href = window.location.href
+        document.getElementById(`nav-${href.substring(href.lastIndexOf('/')+1,href.length)}-tab`).click()
+        
+    })
+</script>
+{% endblock %}

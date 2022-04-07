@@ -1,0 +1,121 @@
+body{
+    color: #3c3b37;;
+  }
+  .owl-carousel {
+    position: relative;
+    margin-top: 30px;
+  }
+  .owl-nav {
+    position: absolute;
+    top: -60px;
+    left: 10px;
+  }
+  .uk-card-primary {
+    border-radius: 8px;
+  }
+  h3 {
+    margin-top: 10px
+  }
+  .uk-card > :last-child {
+    margin-top:0;
+    margin-bottom: 10px
+  }
+  p {
+    margin-top: 30px;
+    margin-bottom: 0;
+  }
+  .owl-next {
+    background: #3286f0;
+  }
+  .owl-theme .owl-nav [class*='owl-'] {
+    background: #383838;
+  }
+  .owl-dots {
+    margin-top: 30px;
+  }
+  .uk-card-title {
+    padding-bottom: 20px
+}
+.course-card img{
+  height: 138px;
+  border-radius: 7px;;
+}
+
+.course-card h2{
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.02rem;
+  font-size: 16px;
+  margin: 5px 0 5px 0;
+  color: #3c3b37 !important;
+
+}
+.course-card .ins{
+  color: #73726c;
+  font-size: 14px;
+}
+.course-card .price{
+  color: #3c3b37;;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02rem;
+  font-size: 16px;
+}
+.uk-card-primary{
+  background-color: white !important;
+  border: none;
+  box-shadow: none;
+}
+.colored{
+  color: #eb8a2f !important;
+}
+.rate{
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+.rate i{
+  font-size: 12px;
+  color: grey;
+}
+.uk-section{
+  padding: 0;
+}
+.uk-section .basliq{
+  margin: 0 0 10px 15px;
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -0.02rem;
+  font-size: 24px;
+}
+.owl-carousel{
+  margin-top: 15px !important;
+}
+ .nav-tabs{
+  border: none !important;
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
+  color: #3c3b37;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02rem;
+  font-size: 16px;
+  border:none;
+  border-bottom: 2px solid #3c3b37 !important;
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link:hover{
+  /* border: none; */
+  border-color: white;;
+}
+.nav-link{
+  color: #73726c;
+}
+.nav-link:hover{
+  color: #73726c;
+}
+.course-card:hover img{
+  -webkit-filter: grayscale(30%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(30%);
+}
+.course-card:hover{
+  text-decoration: none;
+}

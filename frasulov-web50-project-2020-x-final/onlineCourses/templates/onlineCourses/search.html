@@ -1,0 +1,603 @@
+{% extends "onlineCourses/layout.html" %}
+{% load static %}
+{% block body %}
+<style>
+    body{
+        color: #3c3b37;
+    }
+    .search{
+        width: 92%;
+        margin-left: 4%;
+        margin-top: 50px;
+    }
+    .search .head{
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -0.02rem;
+        font-size: 32px;
+    }
+    .search .gua{
+        background: #fbfbf8;
+        color: #3c3b37;
+        border: 1px solid #dcdacb;
+        border-radius: 4px;
+        padding: 16px;
+        margin-bottom: 50px;
+    }
+    .search .gua h2{
+        font-weight: 650;
+        line-height: 1.2;
+        font-size: 16px;
+        margin: 0;
+    }
+    .search .gua h2 img{
+        width: 40px;
+        margin-right: 15px;
+    }
+    .row-style{
+        margin-top: 16px !important;
+        padding-bottom: 16px !important;
+        border-bottom: 1px solid #dcdacb !important
+    }
+        .course img{
+        border-radius: 7px;
+        width: 100%;
+        height: 146px;
+        }
+
+        .course h2{
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -0.02rem;
+        font-size: 16px;
+        margin: 5px 0 5px 0;
+        color: #3c3b37 !important;
+
+        }
+        .course .ins{
+        color: #73726c;
+        font-size: 13px;
+        margin: 2px 0;
+        }
+        .course .price{
+        color: #3c3b37;;
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -0.02rem;
+        font-size: 16px;
+        
+        }
+        .course p{
+            color: #3c3b37;
+            margin:0;
+            font-weight: 400;
+            line-height: 1.4;
+            font-size: 14px;
+            width: 80%;
+        }
+        .colored{
+        color: #eb8a2f !important;
+}
+        .rate{
+        font-size: 14px;
+        margin-bottom: 5px;
+        }
+        .rate i{
+        font-size: 12px;
+        color: grey;
+        }
+        .fgh{
+            color:#73726c !important;
+            font-weight: 400 !important;
+            line-height: 1.4 !important;
+            font-size: 12px !important;
+        }
+        .course:hover img{
+            -webkit-filter: grayscale(30%); /* Safari 6.0 - 9.0 */
+            filter: grayscale(30%);
+            }
+        .course:hover{
+            text-decoration: none !important;
+        }
+        .my-choice-btn{
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            padding-top: 16px;
+            padding-bottom: 16px;
+            user-select: none;
+            width: 100%;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02rem;
+            font-size: 19px;
+            border:none;
+            background-color: white;
+            border-top: solid thin #dcdacb;
+            color: #3c3b37;
+            
+        }
+        .filter{
+            width: 80%;
+            margin-left: 10%;
+        }
+        .filterr{
+            color: #0f7c90;
+            background-color: transparent;
+            border: 1px solid #2896a9;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 12px 32px !important;
+            user-select: none;
+            white-space: nowrap;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02rem;
+            font-size: 16px;
+        }
+        .filterr:hover{
+            border-color: #1c6a78;
+            color: #094c59;
+        }
+        .ui {
+            background-color: white !important;
+            padding:8px !important;
+        }
+        .no-result h2{
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02rem;
+            font-size: 19px;
+            color: #3c3b37;
+            margin-bottom: 24px;
+        }
+        .no-result ul li{
+            padding-left: 14px;
+            line-height: 1.4;
+        }
+        .no-result ul li + li {
+            margin-top: .4rem;
+        }
+        .my-nav{
+        width: 100%;
+        border-top: 1px solid #dcdacb;
+        background: #fbfbf8;
+        box-shadow: 0 2px 4px rgba(0,0,0,.08),0 4px 12px rgba(0,0,0,.08);
+        font-weight: 400;
+        line-height: 1.4;
+        font-size: 14px;
+      
+      }
+      .my-nav ul{
+        margin-bottom: 10px;
+        list-style: none;
+        padding: 12px 0;
+      }
+      .my-nav ul li{
+        margin: 0 10px;
+      }
+      .my-nav ul li a{
+        color: #3c3b37;
+      }
+      .my-nav ul li a:hover{
+        text-decoration: none;
+        color: #0f7c90;
+      }
+</style>
+<nav class="my-nav d-none d-lg-block">
+    <ul id="navbarSupportedContent" class="d-flex justify-content-center align-items-center">
+      {% for category in categories %}
+        <li><a href="/search?q={{category.category}}">{{category.category}}</a></li>
+      {% endfor %}
+    </ul>
+  </nav>
+{% if course_len %}
+<div class="ui left demo vertical inverted sidebar labeled icon menu">
+    <div class="accordion" id="accordionExample">
+        <div class="">
+        <div class="" id="headingOne">
+            <h2 class="mb-0">
+            <button class="my-choice-btn" type="button" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1">
+                Language<i id="check-arrow" class="fas fa-angle-double-down"></i>
+            </button>
+            </h2>
+        </div>
+    
+        <div id="collapseOne1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+                <ul id='my-checkbox-language-sm' style="list-style: none;padding-left: 0 !important;">
+                    {% for language in languages %}
+                    <li>
+                        <input type="checkbox"  class="my-input-sm" data-type="language" name="{{language.language_text}}">
+                        <label class="ml-2">{{language.language_text}}</label>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        </div>
+
+    </div>
+    <div class="accordion" id="accordionExample">
+        <div class="">
+        <div class="" id="headingOne">
+            <h2 class="mb-0">
+            <button class="my-choice-btn" type="button" data-toggle="collapse" data-target="#collapseOne2" aria-expanded="true" aria-controls="collapseOne2">
+                Category<i id="check-arrow" class="fas fa-angle-double-down"></i>
+            </button>
+            </h2>
+        </div>
+    
+        <div id="collapseOne2" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+                <ul id="my-checkbox-category-sm" style="list-style: none;padding-left: 0 !important;">
+                    {% for category in categories %}
+                        <li>
+                            <input type="checkbox" class="my-input-sm" data-type="category" name="{{category.category}}">
+                            <label class="ml-2">{{category.category}}</label>
+                        </li>
+                        {% endfor %}
+                </ul>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="accordion" id="accordionExample1">
+        <div class="">
+        <div class="" id="headingOne">
+            <h2 class="mb-0">
+            <button class="my-choice-btn" type="button" data-toggle="collapse" data-target="#collapseOne3" aria-expanded="true" aria-controls="collapseOne3">
+                Level<i id="check-arrow" class="fas fa-angle-double-down"></i>
+            </button>
+            </h2>
+        </div>
+    
+        <div id="collapseOne3" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample1">
+            <div class="card-body">
+                <ul id='my-checkbox-level-sm' style="list-style: none;padding-left: 0 !important;">
+                    {% for level in levels %}
+                    <li>
+                        <input type="checkbox" class="my-input-sm" data-type="level" name="{{level.level_text}}" >
+                        <label class="ml-2">{{level.level_text}}</label>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        </div>
+
+    </div>
+    <div style="width: 100%;border-top:solid thin #dcdacb"></div>
+  </div>
+  {% endif %}
+<div class="search">
+    {% if course_len %}
+    <h1 class="head" id="search-query" data-query="{{search}}">{{course_len}} result for "{{search}}"</h1>
+    {% else %}
+    <h1 class="head" id="search-query" data-query="{{search}}">Sorry, we couldn't find any results for "{{search}}"</h1>
+    {% endif %}
+    {% if course_len %}
+    <div class="gua">
+        <h2 class="d-flex align-items-center"><img src="{% static 'onlineCourses/image.png'%}" alt="">    Not sure? All courses have a 30-day money-back guarantee</h2>
+    </div>
+    <div class="row">
+        <div class="col-3" style="margin-top: 16px;width: 50% !important;">
+            <div class="d-block d-lg-none">
+                <button class="filterr" onclick="sidebarCC()"><svg style="font-size: 20px;margin-right:5px" height="1em" viewBox="0 0 16 16" class="bi bi-filter" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                  </svg>Filter</button>
+            </div>
+            <div class="filter d-none d-lg-block">
+                <div class="accordion" id="accordionExample">
+                    <div class="">
+                    <div class="" id="headingOne">
+                        <h2 class="mb-0">
+                        <button class="my-choice-btn" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Language<i id="check-arrow" class="fas fa-angle-double-down"></i>
+                        </button>
+                        </h2>
+                    </div>
+                
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card-body" style="padding: 0;padding-left:8px">
+                            <form>
+                                <ul id='my-checkbox-language' style="list-style: none;padding-left: 0 !important;">
+                                    {% for language in languages %}
+                                    <li>
+                                        <input type="checkbox"  class="my-input" data-type="language" name="{{language.language_text}}">
+                                        <label class="ml-2">{{language.language_text}}</label>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </form>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="accordion" id="accordionExample">
+                    <div class="">
+                    <div class="" id="headingOne">
+                        <h2 class="mb-0">
+                        <button class="my-choice-btn" type="button" data-toggle="collapse" data-target="#collapse-2" aria-expanded="true" aria-controls="collapseOne">
+                            Category<i id="check-arrow" class="fas fa-angle-double-down"></i>
+                        </button>
+                        </h2>
+                    </div>
+                
+                    <div id="collapse-2" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <ul id="my-checkbox-category" style="list-style: none;padding-left: 0 !important;">
+                                {% for category in categories %}
+                                    <li>
+                                        <input type="checkbox" class="my-input" data-type="category" name="{{category.category}}">
+                                        <label class="ml-2">{{category.category}}</label>
+                                    </li>
+                                    {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="accordion" id="accordionExample">
+                    <div class="">
+                    <div class="" id="headingOne">
+                        <h2 class="mb-0">
+                        <button class="my-choice-btn" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                            Level<i id="check-arrow" class="fas fa-angle-double-down"></i>
+                        </button>
+                        </h2>
+                    </div>
+                
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card-body" style="padding: 0;padding-left:8px">
+                            <form action="">
+                                <ul id='my-checkbox-level' style="list-style: none;padding-left: 0 !important;">
+                                    {% for level in levels %}
+                                    <li>
+                                        <input type="checkbox" class="my-input" data-type="level" name="{{level.level_text}}" >
+                                        <label class="ml-2">{{level.level_text}}</label>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </form>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div style="width: 100%;border-top:solid thin #dcdacb"></div>
+            </div>
+            
+        </div>
+        <div id="all-result-courses" class="col-12 col-lg-9">
+            
+        </div>
+    </div>
+      {% else %}
+      <div class="no-result">
+      <h2>Try adjusting your search. Here are some ideas:</h2>
+      <ul>
+          <li>Make sure all words are spelled correctly</li>
+          <li>Try different search terms</li>
+          <li>Try more general search terms</li>
+      </ul>
+      </div>
+      {%endif%}
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+
+    query = document.getElementById('search-query').dataset.query;
+    fetch(`search/${query}`)
+    .then(response => response.json())
+    .then(result => {
+        viewFilter(result.filter,'#my-checkbox-category','#my-checkbox-level','#my-checkbox-language', '.my-input')
+        viewFilter(result.filter,'#my-checkbox-category-sm','#my-checkbox-level-sm','#my-checkbox-language-sm', '.my-input-sm')
+        filterCourse('.my-input')
+        filterCourse('.my-input-sm')
+        document.getElementById('all-result-courses').innerHTML = ''
+        result.result.forEach(function(course){
+            viewCourse(course)
+        })
+    })
+})
+
+function viewFilter(filter, category_id, level_id, language_id, class_name)
+{
+    
+    document.querySelectorAll(`${level_id} ${class_name}`).forEach(function(input){
+        for(let i = 0; i< filter.level_boolean.length; i++)
+        {
+            if (input.name == filter.level[i])
+                if(filter.level_boolean[i]){
+                    input.checked = true
+                }else{
+                    input.checked = false
+                }
+        }
+    })
+
+    document.querySelectorAll(`${category_id} ${class_name}`).forEach(function(input){
+        for(let i = 0; i< filter.category_boolean.length; i++)
+        {
+            if (input.name == filter.category[i])
+                if(filter.category_boolean[i])
+                    input.checked = true
+                else
+                    input.checked = false
+        }
+    })
+
+    document.querySelectorAll(`${language_id} ${class_name}`).forEach(function(input){
+        for(let i = 0; i< filter.language_boolean.length; i++)
+        {
+            if (input.name == filter.language[i])
+                if (filter.language_boolean[i])
+                    input.checked = true
+                else
+                    input.checked = false
+
+        }
+    })
+    
+} 
+
+function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+function filterCourse(class_name)
+{
+    var inputs = document.querySelectorAll(class_name);
+    query = document.getElementById('search-query').dataset.query;
+    inputs.forEach(function(input){
+        input.onclick = () =>{
+            console.log(input.name)
+            fetch(`search/${query}`,{
+                method: 'POST',
+                credentials: "same-origin",
+                headers: {
+                "X-CSRFToken": getCookie("csrftoken"),
+                "Accept": "application/json",
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    filter: input.name,
+                    type: input.dataset.type
+                })
+            })
+            .then(response => response.json())
+            .then(result => {
+                viewFilter(result.filter)
+                filterCourse()
+                console.log(result.result)
+                document.getElementById('all-result-courses').innerHTML = ''
+                result.result.forEach(function(course){
+                    viewCourse(course)
+                })
+            })
+        }
+    })
+}
+
+
+
+function viewCourse(course)
+{
+    const a_tag = document.createElement('a');
+    a_tag.href = `course/${course.id}`
+    a_tag.classList.add('course')
+    
+    const row = document.createElement('div')
+    row.classList.add('row')
+    row.classList.add('row-style')
+
+    const col_4_div = document.createElement('div')
+    col_4_div.classList.add('col-4')
+
+    const course_img = document.createElement('img')
+    course_img.src = course.image
+
+    col_4_div.append(course_img)
+
+    const col_8_div = document.createElement('div')
+    col_8_div.classList.add('col-8')
+
+    const h2 = document.createElement('h2')
+    h2.innerHTML = course.title
+
+    const price_span = document.createElement('span')
+    price_span.classList.add('price')
+    price_span.style.float = 'right'
+    if (course.price == 0)
+        price_span.innerHTML = `Free`
+    else
+        price_span.innerHTML = `$ ${course.price}`
+    h2.append(price_span)
+
+    const subtitle_p = document.createElement('p')
+    subtitle_p.innerHTML = course.subtitle;
+
+    const ins_div = document.createElement('div')
+    ins_div.classList.add('ins')
+
+    course.instructor.forEach(function(instructor){
+        const ins_span = document.createElement('span')
+        ins_span.style.textDecoration = 'underline'
+        ins_span.innerHTML = instructor
+        ins_div.append(ins_span)
+    })
+
+    const rate_div = document.createElement('div')
+    rate_div.classList.add('rate')
+
+    const rate_span = document.createElement('span')
+    rate_span.style.fontWeight = '650'
+    rate_span.style.color = '#be5a0e'
+    rate_span.innerHTML = course.averageRate
+    rate_span.style.marginRight = '2px'
+    
+    rate_div.append(rate_span)
+
+    course.codeRate.forEach(code => {
+        let star = document.createElement('i')
+        star.classList.add('fa-fw')
+        star.classList.add('colored')
+        star.style.marginLeft = '1px'
+        if (code == "+"){
+            star.classList.add('fas')
+            star.classList.add('fa-star')
+            rate_div.append(star)
+        }else if (code == "?"){
+            star.classList.add('fas')
+            star.classList.add('fa-star-half-alt')
+        }else{
+            star.classList.add('far')
+            star.classList.add('fa-star')
+        }
+        rate_div.append(star)
+    })
+
+
+
+    
+    const rate_number_span = document.createElement('span')
+    rate_number_span.style.color = '#73726c'
+    rate_number_span.innerHTML = `(${course.totalRate})`
+    rate_number_span.style.marginLeft = '5px'
+
+    rate_div.append(rate_number_span)
+
+    const last_div = document.createElement('div')
+    last_div.classList.add('fgh')
+    last_div.innerHTML = `<span>${course.totaltime}</span><span style="font-size: 16px;font-weight: bold;line-height: 1.4;">  •  </span><span>${course.lecturecount} lectures</span><span style="font-size: 16px;font-weight: bold;">   •   </span><span>${course.level}</span>`
+
+
+
+    col_8_div.append(h2)
+    col_8_div.append(subtitle_p)
+    col_8_div.append(ins_div)
+    col_8_div.append(rate_div)
+    col_8_div.append(last_div)
+
+    row.append(col_4_div)
+    row.append(col_8_div)
+
+    a_tag.append(row)
+    
+    document.getElementById('all-result-courses').append(a_tag)
+}
+
+</script>
+{% endblock %}

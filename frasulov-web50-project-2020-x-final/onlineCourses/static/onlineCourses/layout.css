@@ -1,0 +1,39 @@
+body, html{
+    width: 100%;
+}
+
+
+#card-pop{
+    width: 250px;
+    height: 150px;
+    z-index: 1 !important;
+}
+.zeroth{
+    height: 12px;
+    background-color: white;
+}
+#search{
+    border: 1px solid grey;
+}
+.cv{
+    width: 85%;
+    height: 90%;
+    border:none;
+    background-color: #fbfbf8;
+}
+.cv:focus{
+    border: none;
+    outline: none;
+}
+.navbar-nav li{
+    margin: 0 5px;
+}
+.profile-1{
+    width: 60px !important;
+    height: 60px !important;
+    margin:0 !important;
+}
+
+.first{
+    margin:5px;
+}

@@ -1,0 +1,249 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}Online Courses{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://kit.fontawesome.com/fed34ed002.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css" integrity="sha512-UTNP5BXLIptsaj5WdKFrkFov94lDx+eBvbKyoe1YAfjeRPC+gT5kyZ10kOHCfNZqEui1sxmqvodNUx3KbuYI/A==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css" integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.5.6/css/uikit.min.css" integrity="sha512-Qd74A/PfiTq1uQtt9KeeSc2Z6/3dj4aj3ar+ewslTXBF2rXWxa+lmThB0qCupcvY4Z7lrILDQSZCeoeW2+IJ8Q==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{% static 'onlineCourses/layout.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/sidebar.min.css" integrity="sha512-l74DvoQfunHVU2XU78fkSoyYJ6k6FzujNwWB5c3/U5AplWV6HnuyCfj4uNSEqFvd7i1nBvhUQ2Pr3e6JfkCPOA==" crossorigin="anonymous" />
+    <script src='https://cdn.tiny.cloud/1/2zxt6nq0ovcec6mo6a0nr31lq56o4k1nhrer05jfbvyz0dyd/tinymce/5/tinymce.min.js' referrerpolicy="origin">
+    </script>
+</head>
+    <style>
+        .here {
+        display: none;
+        position: absolute;
+        background-color: white;
+        color: black;
+        right: 30px;
+        top: 44px;
+        z-index: 1 !important;
+        /* padding: 10px; */
+        border: 1px solid #dcdacb;
+        box-shadow: 0 2px 4px rgba(0,0,0,.08),0 4px 12px rgba(0,0,0,.08);
+        }
+        .here p{
+            margin: 0;
+        }
+        .here ul {
+            list-style: none;
+            padding: 10px 0 10px 20px;
+        }
+        .here li{
+            margin: 5px 0;
+        }
+        .here ul li a{
+            color: #3c3b37;
+            font-weight: 400;
+            line-height: 1.4;
+            font-size: 14px
+
+        }
+        .here ul li a:hover{
+            text-decoration: none;
+            color: #0f7c90;
+        }
+        .second{
+            border-bottom: 1px solid #dcdacb;
+            border-top:  1px solid #dcdacb;
+        }
+        #f-name a{
+            color: #3c3b37;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02rem;
+            font-size: 16px;
+        }
+        #f-name a:hover{
+            color:#0f7c90;
+            text-decoration: none;
+        }
+        #f-email{
+            color: #73726c;
+            margin-top: 2px;
+            font-weight: 400;
+            line-height: 1.4;
+            font-size: 12px;
+        }
+        .profile, .profile-1{
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: rgb(77, 171, 101) ;
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        @media only screen and (min-width: 1200px) {
+            #mn{
+                margin-left: 470px;
+            }
+            .btg{
+                margin-left: 320px !important;
+            }
+        }
+        .navbar{
+            background-color: white;
+            
+        }
+    </style>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" href="{% url 'index' %}">Online</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav d-flex align-items-center justify-content-between" style="width: 100%;">
+                <li class="nav-item d-none d-lg-block">
+                    <form action="{% url 'search' %}" method="GET" id="search" class="d-flex justify-content-center align-items-center" style="width:600px;height:40px;background-color: #fbfbf8;border-radius: 25px;">
+                        <input autocomplete="off" type="text" name="q" class="cv" placeholder="Search for anything">
+                    </form>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item d-block d-lg-none">
+                    <a href="{% url 'editProfile' %}" class="nav-link">Fagan Rasulov</a>
+                </li>
+                {% endif %}
+            {% if user.is_authenticated %}
+                <li class="nav-item d-block d-lg-none">
+                    <a class="nav-link" href="{% url 'mycourses' 'allcourse' %}">My courses</a>
+                </li>
+                <li class="nav-item d-block d-lg-none">
+                    <a class="nav-link" href="{% url 'mycourses' 'card' %}">My Card</a>
+                </li>
+                <li class="nav-item d-block d-lg-none">
+                    <a class="nav-link" href="{% url 'mycourses' 'wishlist' %}">My Wishlist</a>
+                </li>
+                <li class="nav-item d-block d-lg-none">
+                    <a class="nav-link" href="{% url 'instructor'%}">Instructor Dashboard</a>
+                </li>
+                <li class="nav-item d-block d-lg-none">
+                    <a class="nav-link" href="{% url 'userprofile' request.user.id %}">View profile</a>
+                </li>
+                <li class="nav-item d-block d-lg-none">
+                    <a class="nav-link" href="{% url 'editProfile' %}">Edit profile</a>
+                </li>
+                <li class="nav-item d-block d-lg-none">
+                    <a class="nav-link" href="{% url 'logout' %}">Log out</a>
+                </li>
+                <li class="nav-item d-none d-lg-flex" id="dropdown" style="float: right;">
+                    <div class="profile d-flex justify-content-center align-items-center">
+                        {{request.user.first_name.0}}{{request.user.last_name.0}}
+                    </div>
+                    <div id="pops" class="here">
+                        <div class="zeroth">
+                        </div>
+                        <div class="first">
+                            <div class="row">
+                                <div class="col-3" style="padding-left: 20px;padding-bottom: 10px;">
+                                    <div class="profile-1 d-flex justify-content-center align-items-center" style="font-weight: 700;font-size: 24px;">
+                                        {{request.user.first_name.0}}{{request.user.last_name.0}}
+                                    </div>
+                                </div>
+                                <div class="col-9 mt-2 pl-4 pt-1">
+                                    <p id="f-name"><a href="{% url 'editProfile' %}">{{request.user.first_name}} {{request.user.last_name}}</a></p>
+                                    <p id="f-email">{{request.user.email}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="second">
+                            <ul>
+                                <li><a href="{% url 'mycourses' 'allcourse' %}">My courses</a></li>
+                                <li><a href="{% url 'mycourses' 'card' %}">My card</a></li>
+                                <li><a href="{% url 'mycourses' 'wishlist' %}">Wishlist</a></li>
+                                <li><a href="{% url 'instructor' %}">Instructor dashboard</a></li>
+                            </ul>
+                        </div>
+                        <div class="third">
+                            <ul>
+                                <li><a href="{% url 'userprofile' request.user.id %}">View profile</a></li>
+                                <li><a href="{% url 'editProfile' %}">Edit profile</a></li>
+                                <li><a href="{% url 'logout' %}">Log out</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            {% else %}
+                <li id="mn" class="nav-item" >
+                    <a class="nav-link btn btn-outline-primary d-none d-lg-block" style="color: #0069d9 !important;padding: 8px 25px 8px 25px;" href="{% url 'login' %}">Log In</a>
+                    <a class="nav-link d-block d-lg-none" href="{% url 'login' %}">Log In</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary ml-2 d-none d-lg-block" style="color: white !important;padding: 8px 25px 8px 25px;" href="{% url 'register' %}">Sign up</a>
+                    <a class="nav-link d-block d-lg-none"  href="{% url 'register' %}">Sign up</a>
+                </li>
+            {% endif %}
+              </ul>
+            </div>
+          </nav>
+
+          <!-- next -->
+        <div class="body">
+            {% block body %}
+            {% endblock %}
+        </div>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script>
+        document.querySelector('#dropdown').onmouseover = () => {
+        document.getElementById('pops').style.display = 'block'
+      }
+      document.querySelector('#dropdown').onmouseout = () => {
+            document.getElementById('pops').style.display = 'none'
+      }
+      document.querySelector('#card').onmouseover = () => {
+        document.getElementById('card-pop').style.display = 'block'
+      }
+      document.querySelector('#card').onmouseout = () => {
+            document.getElementById('card-pop').style.display = 'none'
+      }
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.5.6/js/uikit.min.js" integrity="sha512-A/GpmZa3UuSGyROVJc60PVN9z2uXwsobP9LmHPjSK0cBx87/EglQPGQhu5pBimT+7nEwvqhhXNBKfguJG4lTfg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.5.6/js/uikit-icons.min.js" integrity="sha512-9d1HL9ly/SV8m9uDdnQA1RZ33/a8+fBvKhAjvkS5Nf8Aifz3mcw9Gdxy3kMMjhs5prgikxPfRZ7hG7fMaoDkww==" crossorigin="anonymous"></script>
+    <script>
+    	$('.owl-carousel').owlCarousel({
+		    loop:false,
+		  	stagePadding: 15,
+		    margin:10,
+		    responsive:{
+		        0:{
+		            items:1
+		        },
+		        640:{
+		            items:2
+		        },
+		       960:{
+		            items:3
+		        },
+		        1200:{
+		            items:5
+		        }
+		    }
+        })
+        $('#collapseOne').on('hide.bs.collapse', function () {
+            document.getElementById('check-arrow').classList.remove('fa-angle-double-up')
+            document.getElementById('check-arrow').classList.add('fa-angle-double-down')
+        })
+        $('#collapseOne').on('show.bs.collapse', function () {
+            document.getElementById('check-arrow').classList.remove('fa-angle-double-down')
+            document.getElementById('check-arrow').classList.add('fa-angle-double-up')
+        })
+        function sidebarCC(){
+            $('.ui.sidebar')
+            .sidebar('setting', 'transition', 'overlay')
+            .sidebar('toggle');
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/sidebar.min.js" integrity="sha512-1tmZBYaLOUohS48wc5egam1rTAIi71yvIpxj0FXHo6FskhgMF3LyCAdLvCFYi4e/L0GfH6BFtDBFD2wVa645Dg==" crossorigin="anonymous"></script>
+</html>

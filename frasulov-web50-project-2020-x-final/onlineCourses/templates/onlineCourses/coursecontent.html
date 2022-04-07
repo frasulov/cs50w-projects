@@ -1,0 +1,1011 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/fed34ed002.js" crossorigin="anonymous"></script>
+    <script src='https://cdn.tiny.cloud/1/2zxt6nq0ovcec6mo6a0nr31lq56o4k1nhrer05jfbvyz0dyd/tinymce/5/tinymce.min.js' referrerpolicy="origin">
+    </script>
+    <title>{{course.title}}</title>
+  </head>
+  <style>
+      .navbar{
+        background-color: #29303b;
+      }
+      .navbar-dark .navbar-nav .nav-link{
+          color: white;
+      }
+      .navbar-dark .navbar-nav .nav-link:hover{
+          color: white;
+      }
+      html, body
+    {
+      height: 100%
+    }
+    body{
+        position: relative;
+        margin: 0 auto;
+    }
+    header{
+    color: #fff;
+    background-color: #29303b;
+    overflow: hidden;
+    }
+    h1{
+        font-weight: normal;
+        margin: 0;
+        padding: 5px 10px;
+        border-right:  1px solid #686f7a;
+        width: auto;
+        line-height: 1.43;
+        position: relative;
+        transition: all .3s ease-out;
+        font-size: 35px;
+        font-weight: 450;
+    }
+    .sidebar, .main{
+        transition: all .3s ease-out;
+        overflow: scroll;
+        -webkit-overflow-scrolling: touch;
+        position: absolute;
+        top: 56px;
+        bottom: 0;
+    }
+    .sidebar{
+        width: 360px;
+        /* background-color: #333; */
+        right: 0;
+    }
+
+    .main{
+        position: absolute;
+        right: 360px;
+        left: 0;
+    }
+
+    h2{
+    margin: 0 0 1em 0;
+    }
+/* AIzaSyD56qVp9lHlsbGDX27pvkSo7a7kQe5Voh8 */
+
+    .first-tag{
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.5em;
+        display: flex;
+        justify-content: space-between;
+        padding: 16px;
+        border: 1px solid #dedfe0;
+        border-right: none;
+        background-color: #fff;
+        color: #29303b;
+        margin: 0 !important;
+
+
+}
+    .toggle-menu{
+        color: #ccc;
+        text-decoration: none;
+        font-size: 50px;
+        float: left;
+        display: block;
+        position: absolute;
+        left: 0;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity .3s ease-out;
+    }
+    .sidebar .lists{
+        list-style: none;
+        margin:0 !important;
+        padding:0 !important;
+    }
+    .sidebar .sec-list{
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding: 16px;
+        flex-direction: column;
+        border-bottom: 1px solid #dedfe0;
+        background-color: #f7f8fa !important;
+
+    }
+    .sidebar .sec-list:hover{
+        background: #f2f3f5 !important;
+        cursor: pointer;
+    }
+    .sidebar .section{
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 1.43em;
+    }
+
+    .video{
+        width: 100%;
+        height: 550px;
+    }
+    .video iframe{
+        width: 100%;
+        height: 100%;
+    }
+    .sidebar .section-detail{
+        text-align: left;
+        margin-top: 2px;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 1.33em;
+        color: #29303b;
+    }
+    .section-btn{
+        border: none;
+        background-color: transparent;
+        font-size: 15px;
+        font-weight: 700;;
+        line-height: 1.43;
+        color: #29303b;
+        margin:0;
+        padding: 0;
+    }
+    .lecture-list{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        padding-left: 0;
+    }
+    /* e6f2f5 */
+    .lecture-list li{
+        background-color: white;
+        color: #14171c;
+        padding: 8px 16px;
+        font-size: 15px;
+        line-height: 1.43;
+        border: none !important;
+    }
+    .lecture-list li:hover{
+        background-color: #f2f3f5 !important;
+    }
+    .my-active{
+        background-color: #e6f2f5 !important;
+    }
+    .card-body{
+        margin: 0;
+        padding:0;
+    }
+    .icon-video{
+        font-style: normal;
+        font-weight: 400;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        color: #8a92a3;
+        font-size: 14px;
+    }
+  </style>
+  <body>
+        <nav class="navbar navbar-dark">
+            <a class="navbar-brand" href="{% url 'index' %}">Online</a>
+            <ul class="navbar-nav mr-auto d-none d-sm-block">
+                <li class="nav-item">
+                <a class="nav-link" href="{% url 'course' course.id %}">{{course.title}}</a>
+                </li>
+            </ul>
+        </nav>
+
+
+
+    <style>
+        .main #nav-tab{
+            border-bottom: 1px solid #dedfe0;
+            width: 95%;
+            margin-left: 2.5%;
+            background-color: white !important;
+            padding-left: 50px;
+            padding-top: 10px;
+        }
+        .main #nav-tabContent{
+            margin-top: 50px;
+            width: 70%;
+            margin-left: 15%;
+            background-color: white !important;
+            border: none;
+        }
+        .main #nav-tab a{
+            border: none;
+            border-bottom: 6px solid transparent;
+            padding: 10px 15px;
+            font-size: 15px;
+            margin-right: 15px;
+            line-height: 1.43;
+            color: #505763;
+        }
+        .main #nav-tab a:hover{
+            border-bottom: 6px solid #007791;
+            color: #29303b;
+        }
+        .main #nav-tab .active{
+            border-bottom: 6px solid #007791;
+            color: #29303b;
+        }
+        .atc{
+            font-size: 24px;
+                font-weight: 700;
+                line-height: 1.33em;
+                color: #29303b;
+                margin-bottom: 15px;
+        }
+        .atcp{
+            font-size: 15px;
+            line-height: 1.43;
+            color: #29303b;
+            /* padding-bottom: 20px; */
+        }
+        .overview{
+            border-top: 1px solid #dedfe0;
+            padding: 24px;        
+            font-size: 15px;
+            line-height: 1.43;
+            color: #29303b;      
+        }
+        .description{
+            border-top: 1px solid #dedfe0;
+            padding: 24px; 
+            font-size: 15px;
+            line-height: 1.43;
+            color: #29303b;
+        }
+        .instructor{
+            padding: 24px;
+        }
+        .description .col-8 p, li, a, h1,h2,h3,h4,h5,h6, .instructor .col-8 p, li, a, h1,h2,h3,h4,h5,h6{
+            font-size: 15px;
+            line-height: 1.43;
+            color: #29303b;
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+
+        .about-course{
+            padding: 24px;  
+        }
+        @media only screen and (max-width: 960px) {
+            .main {
+                padding: 0;
+                margin: 0;
+                right: 0;
+                width: 100%;
+            }
+            body, html{
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                
+            }
+        }
+        .profile{
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background-color: rgb(77, 171, 101) ;
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .name{
+            font-size: 19px;
+            line-height: 1.47em;
+            font-weight: 700;
+            color: #505763;
+            text-decoration: none;
+        }
+        .name:hover{
+            text-decoration: none;;
+            color:#505763;
+        }
+        .ixtisas{
+            font-size: 15px;
+            line-height: 1.43;
+            margin: 0 0 10.5px;
+            color: #29303b;
+        }
+        #qa .my-form input{
+            color: #29303b;
+            font-size: 18px;
+            padding: 11px 45px 12px 25px;
+            display: block;
+            width: 100%;
+            line-height: 1.43;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #8a92a3;
+            box-shadow: none;
+            transition: border-color ease-in-out .08s,box-shadow ease-in-out .08s;
+            height: 34px;
+            font-size: 13px;
+            line-height: 1.287;
+            border-radius: 2px;
+            padding-right: 40px !important;
+        }
+        #qa .my-form.my-form input:focus{
+            border-color: rgba(0,119,145,.5);
+            outline: none;
+            box-shadow: none;
+            box-shadow: inset 0 0 1px rgba(0,119,145,.5);
+        }
+        .my-form label{
+            font-size: 14px;
+            font-weight: 700;
+        }
+        .my-create{
+            width: 100%;
+            border: 1px solid transparent;
+            text-align: center;
+            padding: 10px 25px;
+            line-height: 1.35135;
+            border-radius: 2px;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #fff;
+            background-color: #ec5252;
+        }
+        .my-create:hover{
+            color: #fff;
+            text-decoration: none;
+            background-color: #992337;
+            border-color: transparent;
+        }
+        .rate-button{
+            background-color: transparent;
+            border: none;
+            color:#007791;
+            font-weight: bold;
+
+        }
+        .rate-button:hover{
+            color:#003845;
+        }
+    </style>
+<script>
+    tinymce.init({
+    selector: 'textarea',
+    menubar: false,
+    plugins: 'bold italic link codesample linkchecker lists tinymcespellchecker',
+    toolbar: 'spellchecker link codesample bold italic numlist bullist',
+    setup: function (editor) {
+      editor.on('init', function (e) {
+        editor.setContent("");
+      });
+    },
+    codesample_languages: [
+    { text: 'HTML/XML', value: 'markup' },
+    { text: 'JavaScript', value: 'javascript' },
+    { text: 'CSS', value: 'css' },
+    { text: 'PHP', value: 'php' },
+    { text: 'Ruby', value: 'ruby' },
+    { text: 'Python', value: 'python' },
+    { text: 'Java', value: 'java' },
+    { text: 'C', value: 'c' },
+    { text: 'C#', value: 'csharp' },
+    { text: 'C++', value: 'cpp' }
+  ],
+    toolbar_mode: 'floating',
+    spellchecker_language: 'en',
+    spellchecker_dialog: true,
+    content_css: [
+      '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+      '//www.tinymce.com/css/codepen.min.css']
+  });
+  </script>
+      <section class="main">
+        <div class="video">
+            <iframe id="course-video" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Overview</a>
+              <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Q&A</a>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="about-course">
+                    <div class="atc">
+                        About this course
+                    </div>
+                    <p class="atcp">{{course.title}}</p>
+                </div>
+                <div class="overview">
+                    <div class="row">
+                        <div class="col-12 col-md-4">
+                            By the numbers
+                        </div>
+                        <div class="col-12 col-md-4">
+                           <div>Skill Level: {{course.category.category}}</div>
+                            <div>Students: {{course.students.all.count}}</div>
+                            <div>Language: {{course.language}}</div>
+                            {% if course.subtitle %}
+                            <div>Captions: Yes</div>
+                            {%else%}
+                            <div>Captions: Yes</div>
+                            {%endif%}
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <div>Lectures: {{course.getLectureCount}}</div>
+                            <div>Video: {{course.getTotalHours}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="description">
+                    <div class="row">
+                        <div class="col-4">
+                            <div>Description</div>
+                        </div>
+                        <div class="col-8">
+                            {{course.tomarkdown | safe}}
+                        </div>
+                    </div>
+                </div>
+                <div class="instructor">
+                    <div class="row">
+                        <div class="col-4">
+                            <div>Instructor</div>
+                        </div>
+                        <div class="col-8">
+                            {% for instructor in course.instructor.all %}
+                            <div class="picture mb-4">
+                                <div class="row">
+                                    <div class="col-12 col-lg-2">
+                                        <div class="profile d-flex justify-content-center align-items-center">
+                                            {{instructor.user.first_name.0}}{{instructor.user.last_name.0}}
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-10">
+                                        <div class="">
+                                            <a class="name" href="{% url 'userprofile' instructor.user.id %}">{{instructor.user.first_name}} {{instructor.user.last_name}}</a>
+                                        </div>
+                                        <div class="ixtisas">
+                                            {{instructor.status}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="about-me">
+                                {{instructor.tomarkdown | safe}}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <style>
+                .zzz{
+                    color: #007791;
+                    background-color: #fff;
+                    border: 1px solid #007791;
+                    margin-bottom: 30px;
+                    font-weight: 700;
+                    text-align: center;
+                    vertical-align: middle;
+                    touch-action: manipulation;
+                    white-space: nowrap;
+                    padding: 11px 12px;
+                    font-size: 15px;
+                    line-height: 1.35135;
+                    border-radius: 2px;
+                }
+                .zzz:hover{
+                    color: #003440;
+                    background-color: #fff;
+                    border-color: #003440;
+                    text-decoration: none;
+
+                }
+                .tips{
+                    font-size: 14px;
+                    font-weight: 400;
+                    line-height: 1.43em;
+                    padding: 19px;
+                    margin-bottom: 20px;
+                    background-color: #f5f5f5;
+                    border: 1px solid #e3e3e3;
+                    box-shadow: inset 0 1px 1px rgba(20,23,28,.05);
+                    color: #29303b;
+                }
+                .tips b{
+                    font-weight: 700;
+                }
+                .tips .bullet-list{
+                    list-style-type: disc;
+                    margin-top: 0;
+                    margin-bottom: 10.5px;
+                    padding-left: 40px;
+                }
+                .b-1:hover{
+                    color: #29303b;
+                    background-color: #fff;
+                    border-color: transparent;
+                }
+                .b-1{
+                    background-color: transparent;
+                    border: 1px solid transparent;
+                    padding: 6px 10px;
+                    font-weight: 700;
+                    color: #505763;
+                }
+                .o-1{
+                    font-size: 15px;
+                    line-height: 1.35135;
+                    border-radius: 2px;
+                    font-weight: 700;
+                    color: #505763;
+                    border-bottom: 1px solid #e8e9eb;
+                    padding-bottom: 16px;
+                }
+                .o-1 span{
+                    padding: 6px 10px;
+                }
+
+                .per-question{
+                    border-bottom: 1px solid #e8e9eb;
+                    padding: 16px 24px;
+                    cursor: pointer;
+                }
+                .question-title{
+                    font-size: 14px;
+                    font-weight: 700;
+                    line-height: 1.43em;
+                }
+                .question-title:hover{
+                    color: #003845;
+                    cursor: pointer;
+                }
+                .question-body{
+                    cursor: pointer;
+                    color: #29303b;
+                    font-size: 14px;
+                    line-height: 1.43em;
+                    margin-top: 4px;
+                }
+                .b-2{
+                    border:none;
+                    background-color: transparent;
+                }
+                .to-profile:hover, .b-2:hover{
+                    color: #003845;
+                    text-decoration: none;
+                    outline: 0;
+                }
+                .to-profile, .b-2{
+                    color: #007791;
+                    background-color: transparent;
+                    font-weight: 400;
+                    text-decoration: none;
+                    font-size: 12px;
+                    line-height: 1.33em;
+                }
+                .awagi span{
+                    font-size: 12px;
+                    font-weight: 400;
+                    line-height: 1.33em;
+                    margin-left: 6px;
+                }
+                .awagi{
+                    margin-top: 20px;
+                }
+                .profile-text{
+                    background-color: tomato;
+                    color:white;
+                    width: 35px;
+                    height: 35px;
+                    border-radius: 50%;
+                }
+                .per-question:hover{
+                    background-color: #f7f8fa;
+                }
+                .to-prof:hover{
+                    color: #003845;
+                    text-decoration: none;
+                }
+                .to-prof{
+                    color: #007791;
+                    background-color: transparent;
+                    font-weight: 400;
+                    text-decoration: none;
+                    line-height: 1.4;
+                    font-size: 16px;
+                }
+                .date{
+                    color: #3c3b37;
+                    font-weight: 400;
+                    line-height: 1.4;
+                    font-size: 14px;
+                }
+                .replies{
+                    border-top: 1px solid #e8e9eb;
+                    padding: 16px 24px;
+                    padding-left: 0;
+                }
+                .hgjd{
+                    margin-top: 50px;
+                    font-size: 16px;
+                    line-height: 1.5em;
+                    font-weight: 700;
+                    color: #505763;
+                    margin-right: auto;
+                    padding-top: 6px;
+                }
+                .per-reply{
+                    font-size: 13px;
+                    line-height: 1.43;
+                }
+            </style>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div id="qa" data-course="{{course.id}}">
+                    <div id="askquestion" class="d-none">
+                        <button class="zzz">Back to all questions</button>
+                        <div class="tips">
+                            <p style="margin: 0 0 10.5px;">
+                                <b>Tips on getting your questions answered faster</b>
+                            </p>
+                            <ul class="bullet-list">
+                                <li>Search to see if your question has been asked before</li>
+                                <li>Be detailed; provide screenshots, error messages, code, or other clues whenever possible</li>
+                                <li>Check grammar and spelling</li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <form class="my-form" id="asknewquestion">
+                                    <div class="form-group">
+                                    <label>Title or summary</label>
+                                    <input required class="form-control" placeholder="e.g. Why do we use fit_transform() for training_set?" type="text">
+                                    </div>
+                                    <div class="form-group">
+                                    <label>Details (Optional)</label>
+                                    <textarea id="tiny-question-body" class="form-control" placeholder="e.g.  At 05:28, I didn't understand this part, here is a screenshot of what I tried..." name=""></textarea>
+                                    </div>
+                                    <button class="my-create">Publish</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="questions" class="">
+                        <div class="o-1 d-flex justify-content-between">
+                            <span><span id="reply-number"></span> questions in this course</span>
+                            <button id="add-question" class="b-1">Ask new question</button>
+                        </div>
+                        <div id="all-questions" class="mb-5">
+
+                        </div>
+                    </div>
+                    <div id="question-info" class="d-none">
+                        <button class="zzz">Back to all questions</button>
+                        <div class="row">
+                            <div class="col-1">
+                                <div style="width: 50px;height: 50px;" class="profile-text d-flex justify-content-center align-items-center">
+                                    FR
+                                </div>
+                            </div>
+                            <div class="col-11">
+                                <div class="question-title" style="font-size: 15px;">
+                                </div>
+                                <div class="awagi" style="margin: 5px 0;">
+                                    <a class="to-profile" href="">Fagan</a>
+                                    <span>Sep, 2020</span>
+                                </div>
+
+                                <div class="question-body" style="font-size: 13px;">
+                                </div>
+                            </div>
+                        </div>
+                        <p class="hgjd"><span>1</span> replies</p>
+                        <div id="rreee" class="mb-4">
+                            
+                        </div>
+                        <form id="add-reply">
+                            <div class="form-group">
+                                <textarea id="tiny-question-body-add-reply" class="form-control" placeholder="Write your response"></textarea>
+                                <button class="my-create mt-2" style="width: auto;">Add answer</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section>
+        <script>
+            document.addEventListener("DOMContentLoaded", function(){
+                getQuestion()
+                document.getElementById('add-reply').onsubmit = () => {
+                    body = tinymce.get("tiny-question-body-add-reply").getContent();
+                    question_id = document.getElementById('add-reply').dataset.question;
+                    fetch(`/course/content/addanswer/${question_id}`,{
+                        method: 'POST',
+                        credentials: "same-origin",
+                        headers: {
+                        "X-CSRFToken": getCookie("csrftoken"),
+                        "Accept": "application/json",
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            body:  body,
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(result => {
+                        console.log(result)
+                        tinymce.get("tiny-question-body-add-reply").setContent("");
+                        createReply(result.answer)
+                        let numberOfreplies = document.querySelector('.hgjd span').innerHTML;
+                        numberOfreplies = parseInt(numberOfreplies)
+                        document.querySelector('.hgjd span').innerHTML = numberOfreplies+1;
+
+                    })
+                    return false;
+                }
+
+                document.getElementById('asknewquestion').onsubmit = () => {
+                    title = document.querySelector('#asknewquestion input').value
+                    body = tinymce.get("tiny-question-body").getContent();
+                    course_id = document.getElementById('qa').dataset.course;
+                    fetch(`/course/content/addquestion/${course_id}`,{
+                        method: 'POST',
+                        credentials: "same-origin",
+                        headers: {
+                        "X-CSRFToken": getCookie("csrftoken"),
+                        "Accept": "application/json",
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            title: title,
+                            body:  body,
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(result => {
+                        console.log(result)
+                        document.querySelector('#asknewquestion input').value = ''
+                        tinymce.get("tiny-question-body").setContent("");
+                        document.getElementById('all-questions').innerHTML = ''
+                        getQuestion()
+                        document.getElementById('askquestion').classList.add('d-none')
+                        document.getElementById('question-info').classList.add('d-none')
+                        document.getElementById('questions').classList.remove('d-none')
+                    })
+                    return false;
+                }
+                button_back = document.querySelector('#askquestion .zzz');
+                button_back.onclick = () => {
+                    document.getElementById('all-questions').innerHTML = ''
+                    getQuestion()
+                    document.getElementById('askquestion').classList.add('d-none')
+                    document.getElementById('questions').classList.remove('d-none')
+                    document.getElementById('question-info').classList.add('d-none')
+                    
+                }
+                document.querySelector('#question-info .zzz').onclick = () => {
+                    document.getElementById('all-questions').innerHTML = ''
+                    getQuestion()
+                    document.getElementById('askquestion').classList.add('d-none')
+                    document.getElementById('questions').classList.remove('d-none')
+                    document.getElementById('question-info').classList.add('d-none')
+                }
+                document.getElementById('add-question').onclick = () => {
+                    document.getElementById('askquestion').classList.remove('d-none')
+                    document.getElementById('question-info').classList.add('d-none')
+                    document.getElementById('questions').classList.add('d-none')
+                }
+            })
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = jQuery.trim(cookies[i]);
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+
+            function getQuestion(){
+                course = document.getElementById('qa').dataset.course;
+                fetch(`/course/content/qa/${course}`)
+                .then(respnse => respnse.json())
+                .then(result => {
+                    document.getElementById('reply-number').innerHTML = result.qa.length
+                    result.qa.forEach(question => {
+                        createQuestion(question)
+                    })
+                })
+            }
+
+            function createQuestion(question){
+                const question_ = document.createElement('div')
+                question_.classList.add('per-question')
+                question_.onclick = () => {
+                    document.getElementById('askquestion').classList.add('d-none')
+                    document.getElementById('question-info').classList.remove('d-none')
+                    document.getElementById('questions').classList.add('d-none')
+                    document.querySelector('#question-info .question-title').innerHTML = question.title
+                    document.querySelector('#question-info .question-body').innerHTML = question.body
+                    document.querySelector('#question-info span').innerHTML = question.created
+                    document.querySelector('#question-info a').innerHTML = question.user.first_name;
+                    document.querySelector('#question-info a').href = `/user/${question.user.id}`
+                    document.querySelector('#question-info .profile-text').innerHTML = `${question.user.first_name.substring(0,1)}${question.user.last_name.substring(0,1)}`
+                    document.querySelector('#question-info .hgjd').innerHTML = `<span>${question.answers.length}</span> replies`
+                    document.getElementById('add-reply').dataset.question = question.id
+                    document.getElementById('rreee').innerHTML = ''
+                    question.answers.forEach(answer => {
+                        createReply(answer)
+                    })
+                    
+                }
+                const row = document.createElement('div')
+                row.classList.add('row')
+
+                const col_1 = document.createElement('div')
+                col_1.classList.add('col-1')
+
+                const profile = document.createElement('div')
+                profile.classList.add('profile-text')
+                profile.classList.add('d-flex')
+                profile.classList.add('justify-content-center')
+                profile.classList.add('align-items-center')
+                profile.innerHTML = `${question.user.first_name.substring(0,1)}${question.user.last_name.substring(0,1)}`
+                col_1.append(profile)
+                
+                const col_11 = document.createElement('div')
+                col_11.classList.add('col-11')
+
+                const q_title = document.createElement('div')
+                q_title.classList.add('question-title')
+                if (question.title.length >= 80)
+                    q_title.innerHTML = `${question.title.substring(0,80)}...`
+                else
+                    q_title.innerHTML = question.title;
+
+                const q_body = document.createElement('div')
+                q_body.classList.add('question-body')
+                if (question.body.length >= 90)
+                    q_body.innerHTML = `${question.body.substring(0,90)}...`
+                else
+                    q_body.innerHTML = question.body
+
+                const awagi = document.createElement('div')
+                awagi.classList.add('awagi')
+                awagi.innerHTML = `<a class="to-profile" href="/user/${question.user.id}">${question.user.first_name}</a>
+                        <button class="b-2">${question.answers.length}<i class="ml-1 fas fa-comments"></i></button>
+                        <span>${question.created}</span>`
+
+                col_11.append(q_title)
+                col_11.append(q_body)
+                col_11.append(awagi)
+                row.append(col_1)
+                row.append(col_11)
+                question_.append(row)
+                document.getElementById('all-questions').append(question_)
+            }
+
+            function createReply(answer)
+            {
+                const reply = document.createElement('div')
+                reply.classList.add('replies')
+                const row = document.createElement('div')
+                row.classList.add('row')
+                const col_1 = document.createElement('div')
+                col_1.classList.add('col-1')
+                const profile = document.createElement('div')
+                profile.classList.add('profile-text')
+                profile.classList.add('d-flex')
+                profile.classList.add('justify-content-center')
+                profile.classList.add('align-items-center')
+                profile.style.width = '50px'
+                profile.style.height = '50px'
+                profile.innerHTML = `${answer.user.first_name.substring(0,1)}${answer.user.last_name.substring(0,1)}`
+                col_1.append(profile)
+                const col_11 = document.createElement('div')
+                col_11.classList.add('col-11')
+                col_11.innerHTML = `<a href="/user/${answer.user.id}" class="to-prof">${answer.user.first_name}</a>
+                    <p class="date">${answer.created}</p>
+                    <div class="per-reply">
+                    ${answer.body}
+                    </div>`
+                row.append(col_1)
+                row.append(col_11)
+                reply.append(row)
+                document.getElementById('rreee').append(reply)
+            }
+        </script>
+      <aside class="sidebar d-none d-lg-block">
+        <h3 class="first-tag d-flex justify-content-between">
+            <span>Course Contents</span>
+            {% if is_rate %}
+            <button class="rate-button">Rated</button>
+            {% else %}
+            <a class="rate-button" href="{% url 'rate' course.id %}">Rate</a>
+            {%endif%}
+        </h3>
+          <ul class="lists">
+            {% for section in course.content.all%}            
+            <li class="sec-list" style="padding: 0 !important;">
+                <div class="accordion" id="accordionExample-{{section.id}}">
+                    <div class="">
+                        <button id="heading-{{section.id}}" style="width: 100%;padding:16px" class="section-btn" type="button" data-toggle="collapse" data-target="#collapse-{{section.id}}" aria-expanded="true" aria-controls="collapse-{{section.id}}">
+                            <div style="width: 100%;" class="d-flex justify-content-between" >
+                                <span>Section {{section_counter}}: {{section.title}}</span>
+                                <span class="section-btn"><i id="check-arrow" class="fas fa-arrow-down"></i></span>
+                            </div>
+
+                            <div class="section-detail"> {{section.lecture.count}} | {{section.getTotalTime }}</div>
+                        </button>
+                        
+                    <div id="collapse-{{section.id}}" class="collapse" aria-labelledby="heading-{{section.id}}" data-parent="#accordionExample-{{section.id}}">
+                        <div class="card-body">
+                            <ul class="lecture-list">
+                                {% for lecture in section.lecture.all %}
+                                    <li class="lecture" data-lecture="{{lecture.id}}">{{lecture_counter}}. {{lecture.title}}
+                                        <div class="icon-video">
+                                            <i style="color:#FF0000" class="fab fa-youtube mr-1"></i>{{lecture.video_duration}}
+                                        </div>
+                                    </li>
+                                    
+                               {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+          </ul>
+      </aside>
+
+  </body>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha512-M5KW3ztuIICmVIhjSqXe01oV2bpe248gOxqmlcYrEzAvws7Pw3z6BK0iGbrwvdrUQUhi3eXgtxp5I8PDo9YfjQ==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script>
+      document.addEventListener('DOMContentLoaded', function(){
+          buttons = document.querySelectorAll('.section-btn');
+              buttons.forEach(button => {
+                  button.onclick = () => {
+                      button.childNodes[1].childNodes[3].childNodes[0].classList.toggle('fa-arrow-down')
+                      button.childNodes[1].childNodes[3].childNodes[0].classList.toggle('fa-arrow-up')
+                  }
+              });
+            
+          let lec = document.querySelector('.lecture');
+          fetch(`/course/content/lecture/${lec.dataset.lecture}`)
+                  .then(response => response.json())
+                  .then(result => {
+                      lec.classList.add('active')
+                      document.getElementById('course-video').src = `${result.lecture.video}`
+                  })
+          let lectures = document.querySelectorAll('.lecture');
+          lectures.forEach(lecture => {
+              lecture.addEventListener('click', function(){
+                  let lectureid = lecture.dataset.lecture;
+                  fetch(`/course/content/lecture/${lectureid}`)
+                  .then(response => response.json())
+                  .then(result => {
+                      for(let i = 0; i<lectures.length; i++)
+                          lectures[i].classList.remove('my-active')
+                      lecture.classList.add('my-active')
+                      document.getElementById('course-video').src = `${result.lecture.video}`
+                  })
+              })
+          })
+      })
+  </script>
+</html>

@@ -1,0 +1,236 @@
+{% extends "onlineCourses/layout.html" %}
+
+{% block body %}
+<style>
+    .navbar-expand-lg{
+        box-shadow: 0 2px 4px rgba(0,0,0,.08),0 4px 12px rgba(0,0,0,.08);
+    }
+    #profile{
+        width: 60%;
+        margin-left: 20%;
+        color: #3c3b37;
+    }
+    .boz{
+        color: #73726c;
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -0.02rem;
+        font-size: 14px;
+    }
+    .name{
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -0.02rem;
+        font-size: 40px;
+    }
+    .status{
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -0.02rem;
+        font-size: 16px;
+        padding: 10px 0;
+    }
+    .number{
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -0.02rem;
+        font-size: 24px;
+    }
+    .about{
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -0.02rem;
+        font-size: 19px;
+        padding: 20px 0 16px;
+    }
+    .my-c{
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -0.02rem;
+        font-size: 19px;
+        padding-bottom: 10px;
+    }
+    .course-card{
+        height: 100%;
+        margin-bottom: 30px;
+    }
+    .course-card img{
+    width: 100%;
+    height: 150px;
+    border-radius: 7px;;
+    }
+    .course-card h2{
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.02rem;
+    font-size: 16px;
+    margin: 5px 0 5px 0;
+    color: #3c3b37 !important;
+    }
+
+    .course-card .ins{
+    color: #73726c;
+    font-size: 14px;
+    }
+    .course-card .price{
+    color: #3c3b37;;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02rem;
+    font-size: 16px;
+    }
+    .colored{
+  color: #eb8a2f !important;
+}
+.rate{
+  font-size: 14px;
+}
+.rate i{
+  font-size: 12px;
+  color: grey;
+}
+.course-card:hover img{
+  -webkit-filter: grayscale(30%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(30%);
+}
+.course-card:hover{
+  text-decoration: none;
+}
+    .fgh{
+    color:#73726c !important;
+    font-weight: 400 !important;
+    line-height: 1.4 !important;
+    font-size: 12px !important;
+    margin-bottom: 5px;
+        }
+</style>
+
+    <div id="profile" class="mt-5">
+        <div class="row">
+            <div class="col-12 col-lg-8">
+                {% if is_student %}
+                <div class="boz">STUDENT</div>
+                {% else %}
+                <div class="boz">INSTRUCTOR</div>
+                {% endif %}
+                <div class="name">{{instructor.user.first_name}} {{instructor.user.last_name}}</div>
+                <div class="status">{{instructor.status}}</div>
+                {% if not is_student %}
+                <div class="row">
+                    <div class="col-3">
+                        <div class="boz">Total Students</div>
+                    </div>
+                    <div class="col-3">
+                        <div class="boz">Reviews</div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-3">
+                        <div class="number">{{instructor.getStudentCount}}</div>
+                    </div>
+                    <div class="col-3">
+                        <div class="number">{{instructor.getReview.total}}</div>
+                    </div>
+                </div>
+                {% endif%}
+                <h2 class="about">About me</h2>
+                <div>
+                    {{instructor.tomarkdown | safe}}
+                </div>
+                {% if is_student %}
+                <h2 class="my-c">My taken courses({{student.course.all.count}})</h2>
+                <div class="row">
+                    {% for course in student.course.all%}
+                    <div class="col-6 mb-4">
+                        <a href="{% url 'course' course.id %}" class="course-card uk-card uk-card-primary">
+                            <img src="{{course.image_link}}" alt="">
+                              <h2>{{course.title}}</h2>
+                              <div class="ins">
+                                {% for c in course.instructor.all %}
+                                <span style="text-decoration: underline;">{{ c }}</span>
+                                {% endfor %}
+                              
+                              </div>
+                              <div class="rate">
+                                <span class="colored" style="font-weight: 650;">{{course.averageRate}}</span>
+                                {% for code in course.getRateCode%}
+                                {% if code == "+" %}
+                                <i class="fas fa-fw fa-star colored"></i>
+                                {% elif code == "?"%}
+                                <i class="fas fa-fw fa-star-half-alt colored" aria-hidden="true"></i>
+                                {% else %}
+                                <i class="far fa-fw fa-star colored"></i>
+                                {% endif %}
+                                {% endfor %}
+                                <span style="color: #73726c;">({{course.review.all.count}})</span>
+                              </div>
+                              <div class="fgh">
+                                <span>{{course.getTotalHours}}</span>
+                                <span style="font-size: 16px;font-weight: bold;line-height: 1.4;">  •  </span>
+                                <span>{{course.getLectureCount}} lectures</span>
+                                <span style="font-size: 16px;font-weight: bold;">   •   </span>
+                                <span>{{course.level}}</span>
+                              </div>
+                              {% if course.price == 0%}
+                              <div class="price">Free</div>
+                              {% else %}
+                              <div class="price">$ {{course.price}}</div>
+                              {%endif%}
+                             </a>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <h2 class="my-c">My courses({{instructor.in_courses.all.count}})</h2>
+                <div class="row">
+                    {% for course in instructor.in_courses.all%}
+                    <div class="col-12 col-md-6 mb-4">
+                        <a href="{% url 'course' course.id %}" class="course-card uk-card uk-card-primary">
+                            <img src="{{course.image_link}}" alt="">
+                              <h2>{{course.title}}</h2>
+                              <div class="ins">
+                                {% for c in course.instructor.all %}
+                                <span style="text-decoration: underline;">{{ c }}</span>
+                                {% endfor %}
+                              
+                              </div>
+                              <div class="rate">
+                                <span class="colored" style="font-weight: 650;">{{course.averageRate}}</span>
+                                {% for code in course.getRateCode%}
+                                {% if code == "+" %}
+                                <i class="fas fa-fw fa-star colored"></i>
+                                {% elif code == "?"%}
+                                <i class="fas fa-fw fa-star-half-alt colored" aria-hidden="true"></i>
+                                {% else %}
+                                <i class="far fa-fw fa-star colored"></i>
+                                {% endif %}
+                                {% endfor %}
+                                <span style="color: #73726c;">({{course.review.all.count}})</span>
+                              </div>
+                              <div class="fgh">
+                                <span>{{course.getTotalHours}}</span>
+                                <span style="font-size: 16px;font-weight: bold;line-height: 1.4;">  •  </span>
+                                <span>{{course.getLectureCount}} lectures</span>
+                                <span style="font-size: 16px;font-weight: bold;">   •   </span>
+                                <span>{{course.level}}</span>
+                              </div>
+                              {% if course.price == 0%}
+                              <div class="price">Free</div>
+                              {% else %}
+                              <div class="price">$ {{course.price}}</div>
+                              {%endif%}
+                             </a>
+                    </div>
+                    {% endfor %}
+                </div>
+                {%endif%}
+            </div>
+            <div class="col-4 d-none d-lg-block">
+                <div style="width: 200px;height: 200px;font-size: 65px;" class="profile d-flex justify-content-center align-items-center">
+                    FR
+                </div>
+            </div>
+        
+    </div>
+    
+{% endblock %}

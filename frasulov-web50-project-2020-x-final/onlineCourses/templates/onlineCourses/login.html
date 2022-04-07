@@ -1,0 +1,129 @@
+{% extends "onlineCourses/layout.html" %}
+
+{% block body %}
+
+    <style>
+        .login{
+            margin-top: 100px;
+            width: 25%;
+            margin-left: 37.5%;;
+        }
+        .login h3{
+            border-bottom: solid 1px #dedfe0;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            color: #29303b;
+            display: block;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 24px 64px 24px 24px;
+        }
+        .login form input{
+            border-radius: 5px;
+            color: #29303b;
+            font-size: 18px;
+            height: auto;
+            padding: 11px 45px 12px 25px;
+            display: block;
+            width: 100%;
+            line-height: 1.43;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #8a92a3;
+            box-shadow: none;
+            transition: border-color ease-in-out .08s,box-shadow ease-in-out .08s;
+        }
+        .login form input:focus{
+            border-color: rgba(0,119,145,.5);
+            outline: none;
+            box-shadow: none;
+            box-shadow: inset 0 0 1px rgba(0,119,145,.5);
+        }
+        .login form button{
+            border: 1px solid transparent;
+            text-align: center;
+            vertical-align: middle;
+            touch-action: manipulation;
+            white-space: nowrap;
+            padding: 11px 12px;
+            line-height: 1.35135;
+            border-radius: 2px;
+            user-select: none;
+            font-size: 16px;
+            font-weight: 700;
+            height: 48px;
+            margin-bottom: 16px;
+            width: 100%;
+            color: #fff;
+            background-color: #ec5252;
+        }
+        .login form button:hover{
+            color: #fff;
+            background-color: #992337;
+            border-color: transparent;
+        }
+        .po{
+            margin-top: 10px;
+            color: #29303b;
+            font-size: 15px;
+            line-height: 1.43;   
+        }
+        .po a{
+            font-weight: 700;
+            color: #007791;
+        }
+        .po a:hover{
+            outline: 0;
+            color: #003845;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .danger-alert{
+            background-color: #faebeb;
+            border-color: transparent;
+            color: #521822;
+            margin-top: 8px;
+            margin-bottom: 8px;
+            padding: 16px 16px 16px 25px;
+            border: 1px solid transparent;
+
+        }
+        @media only screen and (max-width: 576) {
+           .login{
+               width: 60%;
+               margin-left: 20%;
+           } 
+        }
+        @media only screen and (max-width: 1200px) {
+           .login{
+               width: 80%;
+               margin-left: 10%;
+           } 
+        }
+    </style>
+
+
+    <div class="login">
+        <h3>Log in to your Online account!</h3>
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            {% if message %}
+            <div class="danger-alert">
+                {{message}}
+            </div>
+            {%endif%}
+            <div class="form-group">
+                <input autofocus class="form-control" type="email" name="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="password" placeholder="Password">
+            </div>
+            <button>Login</button>
+        </form>
+        <div class="d-flex justify-content-center po">
+            Don't have an account? <a class="ml-2" href="{% url 'register' %}">Sign up</a>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,249 @@
+{% extends "onlineCourses/layout.html" %}
+{% load static %}
+{% block body %}
+    <link rel="stylesheet" href="{% static 'onlineCourses/index.css' %}">
+    <style>
+      .first-image{
+        width: 92%;
+        margin-left: 4%;
+        height: 400px;
+      }
+      .first-image img{
+        width: 100%;
+        height: 100%;
+      }
+      .sss{
+        position: absolute;
+        top: 150px;
+        left: 100px;
+        background-color: white;
+        width: 400px;
+        padding: 25px 15px;
+        color: #3c3b37;
+      }
+      .sss h2{
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -0.02rem;
+        font-size: 40px;
+        margin-bottom: 5px;
+      }
+      .sss p{
+        font-weight: 400;
+        line-height: 1.4;
+        font-size: 19px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+      }
+      .sss form{
+        border: 1px solid #989586;
+        border-radius: 4px;
+        font-weight: 400;
+        line-height: 1.4;
+        font-size: 16px;
+        color: #3c3b37;
+      }
+      .sss input{
+        width: 88%;
+        padding: 10px 0 10px 15px;
+        border:none;
+        /* margin-right: 10px; */
+        /* margin-left: 2.5%; */
+      }
+      .sss form:hover{
+        border: 1px solid #797667;
+      }
+      .sss form input:focus{
+        border: none;
+        outline: none;
+      }
+      .sss button{
+        background-color: white;
+        border: none;
+      }
+      .sss form input{
+        color: #3c3b37;
+        caret-color: #3c3b37;
+      }
+      .xcs{
+        width: 92%;
+        margin-left: 4%;
+      }
+      .sss button i{
+        color:#73726c !important;
+      }
+      .my-nav{
+        width: 100%;
+        border-top: 1px solid #dcdacb;
+        background: #fbfbf8;
+        box-shadow: 0 2px 4px rgba(0,0,0,.08),0 4px 12px rgba(0,0,0,.08);
+        font-weight: 400;
+        line-height: 1.4;
+        font-size: 14px;
+      
+      }
+      .my-nav ul{
+        margin-bottom: 10px;
+        list-style: none;
+        padding: 12px 0;
+      }
+      .my-nav ul li{
+        margin: 0 10px;
+      }
+      .my-nav ul li a{
+        color: #3c3b37;
+      }
+      .my-nav ul li a:hover{
+        text-decoration: none;
+        color: #0f7c90;
+      }
+      .danger-alert{
+            background-color: #faebeb;
+            border-color: transparent;
+            color: #521822;
+            margin-top: 8px;
+            margin-bottom: 8px;
+            padding: 16px 16px 16px 25px;
+            border: 1px solid transparent;
+
+        }
+    </style>
+    <nav class="my-nav d-none d-lg-block">
+      <ul id="navbarSupportedContent" class="d-flex justify-content-center align-items-center">
+        {% for category in categories %}
+          <li><a href="/search?q={{category.category}}">{{category.category}}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+    <div class="first-image">
+      <img src="https://images.pexels.com/photos/21696/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350" alt="">
+      <div class="sss d-none d-lg-block">
+        <h2>Learn on your schedule</h2>
+        <p>Study any topic, anytime. Choose from thousands of expert-led courses now.</p>
+        <form action="{% url 'search' %}" method="GET">
+          <input autocomplete="off" type="text" name="q" placeholder="What do you want to learn?">
+          <button><i class="fas fa-search"></i></button>
+        </form>
+      </div>
+    </div>
+    <div class="sss xcs d-block d-lg-none" style="position: static;">
+      <h2>Learn on your schedule</h2>
+      <p>Study any topic, anytime. Choose from thousands of expert-led courses now.</p>
+      <form action="{% url 'search'%}" method="GET">
+        <input autocomplete="off" type="text" name="q" placeholder="What do you want to learn?">
+        <button><i class="fas fa-search"></i></button>
+      </form>
+    </div>
+
+
+
+    <div class="" style="width: 92%;margin-left: 4%;">
+      {% if message %}
+      <div class="danger-alert">
+        {{message}}
+      </div>
+    {% endif %}
+      <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin:15px 0 0 18px;">
+        {% for category in categories %}
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" id="{{category.id}}-tab" data-toggle="tab" href="#c-{{category.id}}" aria-controls="{{category.id}}" aria-selected="true">{{category.category}}</a>
+        </li>
+        {% endfor %}
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        {% for category in categories%}
+        <div class="tab-pane fade" id="c-{{category.id}}" role="tabpanel" aria-labelledby="{{category.id}}-tab">
+          <div class="uk-margin"></div>
+          <div class="uk-section">
+              <div class="owl-carousel owl-theme">
+                  {% for course in courses%}
+                  {% if course.category.id == category.id %}
+                  <div class="item">
+                    <a href="{% url 'course' course.id %}" class="course-card uk-card uk-card-primary">
+                      <img src="{{course.image_link}}" alt="">
+                        <h2>{{course.title}}</h2>
+                        <div class="ins">
+                          {% for c in course.instructor.all %}
+                          <span style="text-decoration: underline;">{{ c }}</span>
+                          {% endfor %}
+                        
+                        </div>
+                        <div class="rate">
+                          <span class="colored" style="font-weight: 650;">{{course.averageRate}}</span>
+                          {% for code in course.getRateCode%}
+                            {% if code == "+" %}
+                            <i class="fas fa-fw fa-star colored"></i>
+                            {% elif code == "?"%}
+                            <i class="fas fa-fw fa-star-half-alt colored" aria-hidden="true"></i>
+                            {% else %}
+                            <i class="far fa-fw fa-star colored"></i>
+                            {% endif %}
+                            {% endfor %}
+                          <span style="color: #73726c;">({{course.review.all.count}})</span>
+                        </div>
+                        {% if course.price == 0%}
+                        <div class="price">Free</div>
+                        {% else %}
+                        <div class="price">$ {{course.price}}</div>
+                        {%endif%}
+                       </a>
+                  </div>
+                  {% endif %}
+                  {% endfor%}
+              </div>
+          </div>
+        </div>
+        {% endfor %}
+        
+      </div>
+    
+
+
+
+
+
+       {% if request.user.is_authenticated %}
+       {% if query %}
+       <div class="uk-margin"></div>
+     <div class="uk-section">
+       <h1 class="basliq">Because you searched "{{query}}" last time</h1>
+       <div class="owl-carousel owl-theme">
+         {% for course in last_search_courses%}
+          <div class="item">
+             <a href="{% url 'course' course.id %}" class="course-card uk-card uk-card-primary">
+               <img src="{{course.image_link}}" alt="">
+                 <h2>{{course.title}}</h2>
+                 <div class="ins">
+                  {% for c in course.instructor.all %}
+                  <span style="text-decoration: underline;">{{ c }}</span>
+                  {% endfor %}
+                 </div>
+                 <div class="rate">
+                   <span class="colored" style="font-weight: 650;">{{course.averageRate}}</span>
+                   {% for code in course.getRateCode%}
+                   {% if code == "+" %}
+                   <i class="fas fa-fw fa-star colored"></i>
+                   {% elif code == "?"%}
+                   <i class="fas fa-fw fa-star-half-alt colored" aria-hidden="true"></i>
+                   {% else %}
+                   <i class="far fa-fw fa-star colored"></i>
+                   {% endif %}
+                   {% endfor %}
+                   <span style="color: #73726c;">({{course.review.all.count}})</span>
+                 </div>
+                 <div class="price">$ {{course.price}}</div>
+                </a>  
+       </div>
+       {% endfor %}
+     </div>
+       </div>
+       {% endif %}
+       {% endif %}
+     </div>
+     <div class="mb-5"></div>
+<script>
+  document.querySelector('#myTab li:nth-child(1) a').classList.add('active')
+  document.querySelector('#myTabContent div:nth-child(1)').classList.add('active')
+  document.querySelector('#myTabContent div:nth-child(1)').classList.add('show')
+</script>
+{% endblock %}

@@ -1,0 +1,161 @@
+{% extends "onlineCourses/layout.html" %}
+
+{% block body %}
+<style>
+    #instructor{
+        margin-top: 50px;
+        width: 92%;
+        margin-left: 4%;
+    }
+    .my-create{
+            border: 1px solid transparent;
+            text-align: center;
+            padding: 11px 12px;
+            line-height: 1.35135;
+            border-radius: 2px;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            width: 250px;
+            color: #fff;
+            background-color: #ec5252;
+        }
+        .my-create:hover{
+            color: #fff;
+            text-decoration: none;
+            background-color: #992337;
+            border-color: transparent;
+        }
+     .basliq{
+        margin: 0;
+        font-weight: 650;
+        line-height: 1.2;
+        letter-spacing: -0.02rem;
+        font-size: 24px;
+}
+    .apply{
+        margin-top: 16px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #dcdacb;
+    }
+        .course img{
+        border-radius: 7px;
+        width: 100%;
+        height: 146px;
+        }
+
+        .course h2{
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -0.02rem;
+        font-size: 16px;
+        margin: 5px 0 5px 0;
+        color: #3c3b37 !important;
+
+        }
+        .course .ins{
+        color: #73726c;
+        font-size: 13px;
+        margin: 2px 0;
+        }
+        .course .price{
+        color: #3c3b37;;
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -0.02rem;
+        font-size: 16px;
+        
+        }
+        .course h4{
+            margin:0;
+            font-weight: 400;
+            line-height: 1.4;
+            font-size: 14px;
+            width: 80%;
+        }
+        .colored{
+  color: #eb8a2f !important;
+}
+        .rate{
+        font-size: 14px;
+        margin-bottom: 5px;
+        }
+        .rate i{
+        font-size: 12px;
+        color: grey;
+        }
+        #fgh{
+            color:#73726c;
+            font-weight: 400;
+            line-height: 1.4;
+            font-size: 12px;
+        }
+        .course:hover img{
+            -webkit-filter: grayscale(30%); /* Safari 6.0 - 9.0 */
+            filter: grayscale(30%);
+            }
+        .course a:hover{
+            text-decoration: none;
+        }
+</style>
+<div id="instructor" class="">
+    <a class="my-create" href="{% url 'create' %}">Create Course</a>
+    <h1 class="basliq mt-5">My courses</h1>
+
+    <div class="row">
+        {% for course in my_courses%}
+        <div class="col-12 col-lg-6 apply">
+            <div class="course">
+                <a href="{% url 'course' course.id %}" class="row">
+                    <div class="col-4">
+                        <img src="{{course.image_link}}" alt="">
+                    </div>
+                    <div class="col-8">
+                        <h2 >{{course.title}}
+                            {%if course.price == 0%}
+                            <span class="price" style="float: right;">Free</span>
+                            {%else%}
+                            <span class="price" style="float: right;">$ {{course.price}}</span>
+                            {%endif%}
+                        </h2>
+                        <h4>{{course.subtitle}}</h4>
+                        <div class="ins">
+                          <span>Created: {{course.created}}</span>
+                        </div>
+                        <div class="ins">
+                            <span>Updated: {{course.updated}}</span>
+                          </div>
+                        <div class="rate">
+                        <span class="" style="font-weight: 650;color:#be5a0e">{{course.averageRate}}</span>
+                        {% for code in course.getRateCode%}
+                        {% if code == "+" %}
+                        <i class="fas fa-fw fa-star colored"></i>
+                        {% elif code == "?"%}
+                        <i class="fas fa-fw fa-star-half-alt colored" aria-hidden="true"></i>
+                        {% else %}
+                        <i class="far fa-fw fa-star colored"></i>
+                        {% endif %}
+                        {% endfor %}
+                        <span style="color: #73726c;">({{course.review.all.count}})</span>
+                        </div>
+                        <div id="fgh">
+                            <span>35 total hours</span>
+                            <span style="font-size: 16px;font-weight: bold;line-height: 1.4;">•</span>
+                            <span>340 lectures</span>
+                            <span style="font-size: 16px;font-weight: bold;">•</span>
+                            <span>{{course.level}}</span>
+                        </div>
+                    </div>
+                    <div style="width: 100%;height: 100%;" class="mt-3 d-flex justify-content-end">
+                        <a href="{% url 'viewcoursecontent' course.id %}" target="_blank" class="my-create" style="padding: 5px 25px;margin: 0 5px;width:auto;float: right;color:white">Preview</a>
+                        <a href="{% url 'editCourse' course.id %}" class="my-create" style="padding: 5px 25px;margin: 0 5px;width:auto;float: right;color:white">Edit</a>
+                        <a href="{% url 'deleteCourse' course.id %}" class="my-create" style="padding: 5px 25px;margin: 0 5px;width:auto;float: right;color:white">Delete</a>
+                    </div>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

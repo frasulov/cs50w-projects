@@ -1,0 +1,394 @@
+{% extends "onlineCourses/layout.html" %}
+{% load static %}
+{% block body %}
+<style>
+    .modal-content h2{
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -0.02rem;
+        font-size: 19px;
+        margin-top: 20px;
+        /* padding: 20px; */
+    }
+    .modal-content .input input{
+        border: 1px solid #989586;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+        border-right: 0;
+        font-weight: 400;
+        line-height: 1.4;
+        font-size: 16px;
+        color: #3c3b37;
+        padding: 0 1.6rem;
+        height: 48px;
+        width: 80%;
+        margin:0;
+    }
+    .modal-content .input input:focus{
+        outline: none;
+    }
+    .modal-content .input button{
+        width: 19%;
+        margin:0;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        background-color: #0f7c90;
+        color: white;
+        height: 48px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 0;
+    }
+    .modal-content .input button:hover {
+    background-color: #094c59;
+    }
+    .sections{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border: 1px solid #dcdacb;
+        margin-bottom: 20px;
+    }
+    .lectures{
+        margin: 0;
+    }
+    .lectures li{
+        padding: 6px 0;
+        margin: 0;
+        font-weight: 400;
+        line-height: 1.4;
+        font-size: 14px;
+        color: #3c3b37;
+    }
+    .card-body{
+        border-bottom: 1px solid #dcdacb;
+    }
+    .section-button{
+        border:none;
+        /* border-top: 1px solid #dcdacb; */
+        border-bottom: 1px solid #dcdacb;
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -0.02rem;
+        font-size: 16px;
+        color: #3c3b37;
+        background-color: #fbfbf8;
+        width: 100%;
+        padding-top: 16px;
+        padding-bottom: 16px;
+    }
+    .det{
+        font-weight: 400;
+        line-height: 1.4;
+        font-size: 14px;
+    }
+    .deeet{
+        font-weight: 400;
+        line-height: 1.4;
+        font-size: 14px;
+        margin: .8rem 0;
+    }
+    .re-content{
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -0.02rem;
+        font-size: 24px;
+        margin-bottom: 16px;
+        margin-top: 50px;
+    }
+    @media only screen and (max-width: 990px) {
+            #preview{
+                display: none;
+                position:inherit;
+                width: 100%;
+                margin-top: 50px;
+            }
+        }
+</style>
+<link rel="stylesheet" href="{% static 'onlineCourses/course.css' %}">
+    <div class="title">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-8" style="padding: 30px 0;color:white">
+                    <h4 class="towhite" style="font-size: 15px;">{{course.category}}</h4>
+                    <h2 class="towhite">{{course.title}}</h2>
+                    <h3 class="towhite" style="font-size: 19px;">{{course.subtitle}}</h3>
+                    <div class="mt-3 mb-1">
+                        <span class="extra">Best Seller</span>
+                        <span class="colored">{{course.averageRate}}</span>
+                        {% for code in course.getRateCode%}
+                            {% if code == "+" %}
+                            <i class="fas fa-fw fa-star colored"></i>
+                            {% elif code == "?"%}
+                            <i class="fas fa-fw fa-star-half-alt colored" aria-hidden="true"></i>
+                            {% else %}
+                            <i class="far fa-fw fa-star colored"></i>
+                            {% endif %}
+                            {% endfor %}
+                        <span>({{course.review.all.count}} ratings) {{course.students.count}} students</span>
+                    </div>
+                    <span>Created by </span>
+                    {% for c in course.instructor.all %}
+                    <a href="{% url 'userprofile' c.user.id %}" style="color:white;text-decoration: underline;">{{ c }}</a>
+                    {% endfor %}
+                    <div class="mt-1 mb-1">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span class="ml-1 mr-1">Last Updated {{course.normalupdatedtime }}</span>
+                        <i class="fas fa-globe mr-1 ml-2"></i>
+                        <span>{{course.language}}</span>
+                    </div>
+                    <div>
+                        <i class="fas fa-closed-captioning mr-1"></i>
+                        {% for c in course.subtitle_language.all %}
+                        <span style="text-decoration: underline;">{{ c }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="mt-2">
+                            {% if wishlist%}
+                         <button id="wish" data-course="{{course.id}}" class="my-btn">Wishlisted<i class="fas fa-heart ml-2"></i></button>
+                         {% else %}
+                         <button id="wish" data-course="{{course.id}}" class="my-btn">Wishlist<i class="far fa-heart ml-2"></i></button>
+                         {% endif %}
+                        <button class="my-btn" data-toggle="modal" data-target="#exampleModal">Share<i class="fas fa-share ml-2"></i></button>
+
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+                                <div style="width: 92%;margin-left: 4%;margin-bottom: 20px;">
+                                    <h2>Share this course</h2>
+                                    <div class="input">
+                                        <input readonly id="my-input" type="text"><button onclick="copyTo()">Copy</button>
+                                    </div>
+                                </div>
+                                  <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                              </div>
+                            </div>
+                          </div>
+                          
+                          
+                    </div>
+
+                </div>
+                <div class="col-12 col-lg-4">
+                    <div id="preview">
+                        <div class="img">
+                            <img src="{{course.image_link}}" alt="">
+                        </div>
+                        <div class="content">
+                            {% if course.price == 0 %}
+                            <h2 style="font-weight: 600;">Free Course</h2>
+                            {% else %}
+                            <h2>$ {{course.price}}</h2>
+                            {%endif%}
+
+                            {% if is_in_course or mine %}
+                                <a style="color:white;" href="{% url 'viewcoursecontent' course.id %}" onmouseover="this.style.textDecoration = 'none'" class="addcard">Go to Course</a>
+                            {% else %}
+                                {% if free %}
+                                    <a style="color:white;" href="{% url 'addcourse' course.id %}" onmouseover="this.style.textDecoration = 'none'" class="addcard">Enroll to</a>
+                                {% else %}
+                                    {% if is_in_card%}
+                                    <a style="color:white;" href="{% url 'mycourses' 'card' %}" onmouseover="this.style.textDecoration = 'none'" class="addcard">Go to card</a>
+                                    {% else %}
+                                    <button id="addtocard" data-course="{{course.id}}" class="addcard">Add to cart</button>
+                                    {% endif %}
+                                    <a href="{% url 'payment' course.id %}" class="buy-btn">Buy now</a>
+                                {% endif %}
+                            {% endif %}
+                            <p class="text-center mt-2 mb-1" style="font-size: 12px;">30 day money back guarantee</p>
+                            <h5 style="color:#3c3b37;margin-bottom: 10px;font-size: 16px;font-weight: 500;margin-top: 20px;">This course includes:</h6>
+                            <div class="includes mb-4">
+                                <li><i class="fab fa-youtube" style="margin-left: 2px;margin-right: 15px;"></i>{{course.getTotalHours}} on-demand video</li>
+                                <li><i class="far fa-file" style="margin-left: 4.5px;margin-right: 18px;"></i>{{course.getLectureCount}} lectures</li>
+                                <li><i class="fas fa-infinity" style="margin-left: 1px;margin-right: 16px;"></i>Full lifetime access</li>
+                                <li><i class="fas fa-mobile-alt" style="margin-left: 4.5px;margin-right: 21px;"></i>Access on mobile and TV</li>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+    <div class="row">
+        <div class="col-8">
+
+            <h2 class="re-content">Coure content</h2>
+            <div class="deeet">
+                <span>{{course.content.all.count}} sections</span>
+                <span> • </span>
+                <span>{{course.getLectureCount}} lectures</span>
+                <span> • </span>
+                <span>{{course.getTotalHours}}</span>
+            </div>
+            <ul class="sections">
+                {% for section in course.content.all%}
+                    <li class="">
+                        <div class="accordion" id="accordionExample-{{section.id}}">
+                            <div class="">
+                            <div class="" id="headingOne">
+                                <button class="section-button d-flex justify-content-between" type="button" data-toggle="collapse" data-target="#collapse-{{section.id}}" aria-expanded="true" aria-controls="collapseOne">
+                                    <span><i style="color: #73726c;font-size:14px" id="check-arrow" class="fas fa-arrow-down mr-3 ml-2"></i>{{section.title}}</span>
+                                    <span class="det mr-2">
+                                        <span>{{section.lecture.all.count}} Lecture</span>
+                                        <span> • </span>
+                                        <span>{{section.getTotalTime}}</span>
+                                    </span>
+                                </button>
+                            </div>
+                        
+                            <div id="collapse-{{section.id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample-{{section.id}}">
+                                <div class="card-body" style="padding: 25px">
+                                    <ul class="lectures" style="list-style: none;padding-left: 0 !important;">
+                                        {% for lecture in section.lecture.all %}
+                                            <li>
+                                                <div style="width: 100%;" class="d-flex justify-content-between">
+                                                    <span><i style="color: #ff0000" class="fab fa-youtube mr-3"></i>{{lecture.title}}</span>
+                                                    <span style="color:#73726c">{{lecture.video_duration}}</span>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div id="frommd" class="mt-3 mb-5">
+                {{course.tomarkdown | safe}}
+            </div>
+            {% for instructor in course.instructor.all%}
+            <div>
+                    <a href="{% url 'userprofile' instructor.user.id %}" class="ins-name">
+                        {{instructor.user.first_name}} {{instructor.user.last_name}}
+                    </a>
+                    <h5 class="ins-status">{{instructor.status}}</h5>
+                    <div class="row">
+                        <div class="col-12 col-lg-2 mb-4">
+                            <div class="profile-photo">
+                                <div style="width: 100px;height: 100px;font-size: 32px;" class="profile d-flex justify-content-center align-items-center">
+                                    {{instructor.user.first_name.0}}{{instructor.user.last_name.0}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <ul id="xcv">
+                                <li><i class="fas fa-star colored"></i>{{instructor.getReview.rate}} Instructor Rating</li>
+                                <li><i class="fas fa-certificate colored"></i>{{instructor.getReview.total}} Reviews</li>
+                                <li><i class="fas fa-user-friends colored"></i>{{instructor.getStudentCount }} Students</li>
+                                <li><i class="fas fa-play-circle colored"></i>{{instructor.in_courses.all.count}} Courses</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="status-content">
+                        {{instructor.tomarkdown | safe}}
+                    </div>
+                </div>
+        
+            {% endfor%}
+            <div>
+                <h3>Reviews</h3>
+                <div class="review-comments">
+                    {% for review in course.review.all %}
+                    <div class="row">
+                        <div class="col-2">
+                            <div class="reviewer-pic d-flex justify-content-center align-items-center">
+                                {{review.reviewer.user.first_name.0}}{{review.reviewer.user.last_name.0}}
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="content">
+                            <h3 class="font" style="font-size: 18px;">{{review.reviewer.user.first_name}} {{review.reviewer.user.last_name}}</h3>
+                            {% for code in review.getRateCode%}
+                            {% if code == "+" %}
+                            <i class="fas fa-fw fa-star colored"></i>
+                            {% elif code == "?"%}
+                            <i class="fas fa-fw fa-star-half-alt colored" aria-hidden="true"></i>
+                            {% else %}
+                            <i class="far fa-fw fa-star colored"></i>
+                            {% endif %}
+                            {% endfor %}
+                            <span class="ml-1" style="color:#73726c;font-size: 14px;">{{review.getTime}}</span>
+                            <p class="mt-2">{{review.review_text}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="mb-5"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function(){
+    buttons = document.querySelectorAll('.section-button');
+    buttons.forEach(button => {
+        button.onclick = () => {
+            button.childNodes[1].childNodes[0].classList.toggle('fa-arrow-down')
+            button.childNodes[1].childNodes[0].classList.toggle('fa-arrow-up')
+        }
+    });
+
+
+    document.getElementById('my-input').value = window.location.href
+    document.getElementById('wish').onclick = (e) =>{
+        e.preventDefault()
+        course_id = document.getElementById('wish').dataset.course;
+        toggleWishlist(course_id)
+        return false;
+    }
+
+    document.getElementById('addtocard').onclick = () => {
+        addtocard(document.getElementById('addtocard').dataset.course)
+    }
+    
+})
+
+function addtocard(course_id){
+    fetch(`addtocard/${course_id}`)
+    .then(response => response.json())
+    .then(result => {
+        if(result.error)
+            window.location.href = '/login'
+        else
+            location.reload()
+        
+    })
+}
+
+function toggleWishlist(course_id){
+  fetch(`togglewishlist/${course_id}`)
+    .then(response => response.json())
+    .then(result => {
+        console.log(result)
+        if (result.error)
+            window.location.href = '/login'
+        else{
+        if(result.wishlist){
+            document.getElementById('wish').innerHTML = 'Wishlisted<i class="fas fa-heart ml-2"></i>'
+        }else{
+            document.getElementById('wish').innerHTML = 'Wishlist<i class="far fa-heart ml-2"></i>'
+        }
+        }
+    })
+}
+function copyTo() {
+  var copyText = document.getElementById("my-input");
+
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+
+  document.execCommand("copy");
+} 
+
+
+</script>
+{% endblock %}
+

@@ -1,0 +1,239 @@
+{% extends "onlineCourses/layout.html" %}
+
+{% block body %}
+<style>
+        #createCourse{
+            margin-top: 50px;
+            width: 92%;
+            margin-left: 4%;;
+        }
+        #createCourse h3{
+            border-bottom: solid 1px #dedfe0;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            color: #29303b;
+            display: block;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 24px 64px 24px 24px;
+        }
+        #createCourse form input{
+            border-radius: 5px;
+            color: #29303b;
+            font-size: 18px;
+            height: auto;
+            padding: 11px 45px 12px 25px;
+            display: block;
+            width: 100%;
+            line-height: 1.43;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #8a92a3;
+            box-shadow: none;
+            transition: border-color ease-in-out .08s,box-shadow ease-in-out .08s;
+        }
+        #createCourse form input:focus{
+            border-color: rgba(0,119,145,.5);
+            outline: none;
+            box-shadow: none;
+            box-shadow: inset 0 0 1px rgba(0,119,145,.5);
+        }
+        #createCourse form .my-own-button{
+            border: 1px solid transparent;
+            text-align: center;
+            vertical-align: middle;
+            touch-action: manipulation;
+            white-space: nowrap;
+            padding: 11px 12px;
+            line-height: 1.35135;
+            border-radius: 2px;
+            user-select: none;
+            font-size: 16px;
+            font-weight: 700;
+            height: 48px;
+            margin-bottom: 16px;
+            width: 100%;
+            color: #fff;
+            background-color: #ec5252;
+        }
+        #createCourse form .my-own-button:hover{
+            color: #fff;
+            background-color: #992337;
+            border-color: transparent;
+        }
+        .select-css {
+    display: block;
+    font-size: 16px;
+    font-family: sans-serif;
+    font-weight: 400;
+    color: #29303b;
+    line-height: 1.43;
+    padding: .6em 1.4em .5em .8em;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #8a92a3;
+    border-radius: 2px;
+    box-shadow: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+      linear-gradient(to bottom, #fff 0%,#fff 100%);
+    background-repeat: no-repeat, repeat;
+    background-position: right .7em top 50%, 0 0;
+    background-size: .65em auto, 100%;
+}
+.select-css::-ms-expand {
+    display: none;
+}
+.select-css:hover {
+    border-color: #888;
+}
+.select-css:focus {
+    border-color: #aaa;
+    box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    color: #222; 
+    outline: none;
+}
+
+.select-css option {
+    font-weight:normal;
+}
+
+*[dir="rtl"] .select-css, :root:lang(ar) .select-css, :root:lang(iw) .select-css {
+    background-position: left .7em top 50%, 0 0;
+    padding: .6em .8em .5em 1.4em;
+}
+
+.select-css:disabled, .select-css[aria-disabled=true] {
+    color: graytext;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22graytext%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+      linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%);
+}
+
+.select-css:disabled:hover, .select-css[aria-disabled=true] {
+    border-color: #aaa;
+}
+#dfg{
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 1.43;
+    border-bottom: solid 1px #dedfe0;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    color: #29303b;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+.link-tag{
+    color: #29303b;
+    font-size: 16px;
+    line-height: 1.43;
+    margin-left: 10px;
+}
+.link-tag:hover{
+    color: black;
+}
+sup{
+    color:red;
+}
+
+</style>
+
+<script>
+  tinymce.init({
+  selector: 'textarea',
+  menubar: false,
+  plugins: 'bold italic h1 h2 h3 p alignleft aligncenter alignright linkchecker lists tinymcespellchecker',
+  toolbar: 'spellchecker h1 h2 h3 p alignleft aligncenter alignright bold italic numlist bullist',
+  toolbar_mode: 'floating',
+  spellchecker_language: 'en',
+  spellchecker_dialog: true,
+  content_css: [
+    '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+    '//www.tinymce.com/css/codepen.min.css']
+});
+</script>
+<div id="createCourse">
+    <a class="link-tag" href="{% url 'instructor' %}"><i class="fas fa-arrow-left mr-2"></i>Back</a>
+    <h1 id="dfg" class="text-center">Create course</h1>
+    <form action="{% url 'create' %}" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <div class="form-group">
+                    <label>Course Title<sup>*</sup></label>
+                    <input autofocus class="form-control" type="text" name="title" required placeholder="Title">
+                </div>
+                <div class="form-group">
+                    <label>Course Image Link<sup>*</sup></label>
+                    <input autofocus class="form-control" required type="text" name="image" placeholder="Image Link">
+                </div>
+                <div class="form-group">
+                    <label>Course Level<sup>*</sup></label>
+                    <select class="select-css" name="level" required>
+                        {% for level in levels %}
+                        <option value="{{level.id}}">{{level}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Course Subtitle Language</label>
+                    <select class="select-css" name="subtitle_language" multiple>
+                        {% for language in languages %}
+                        <option value="{{language.id}}">{{language}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Course Message (When student take the course, message will sent him/her automatically)</label>
+                    <textarea name="course_message" style="height: 333px;" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="form-group">
+                    <label>Course Subtitle<sup>*</sup></label>
+                    <input class="form-control" type="text" name="subtitle" placeholder="Subtitle" required>
+                </div>
+                <div class="form-group">
+                    <label>Course Price<sup>*</sup> (0 means Free)</label>
+                    <input class="form-control" type="number" step="0.01" name="price" required placeholder="Price">
+                </div>
+                <div class="form-group">
+                    <label>Course Language<sup>*</sup></label>
+                    <select class="select-css" name="language" required>
+                        {% for language in languages %}
+                        <option value="{{language.id}}">{{language}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Course Category<sup>*</sup></label>
+                    <select class="select-css" name="category" required>
+                        {% for category in categories %}
+                        <option value="{{category.id}}">{{category}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Course Description<sup>*</sup></label>
+                    <textarea required name="description" style="height: 400px;" class="form-control">
+                        <h2>Requirements</h2>
+
+                        <h2>Description</h2>
+
+                        <h2>Who this course is for</h2>
+                    </textarea>
+                </div>
+            </div>
+            <button class="my-own-button">Create Course</button>
+        </div>
+    </form>
+    
+{% endblock %}

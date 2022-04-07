@@ -1,0 +1,820 @@
+{% extends "onlineCourses/layout.html" %}
+
+{% block body %}
+<style>
+        #createCourse{
+            margin-top: 50px;
+            width: 92%;
+            margin-left: 4%;;
+        }
+        #createCourse h3{
+            border-bottom: solid 1px #dedfe0;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            color: #29303b;
+            display: block;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 24px 64px 24px 24px;
+        }
+        #createCourse form input{
+            border-radius: 5px;
+            color: #29303b;
+            font-size: 18px;
+            height: auto;
+            padding: 11px 45px 12px 25px;
+            display: block;
+            width: 100%;
+            line-height: 1.43;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #8a92a3;
+            box-shadow: none;
+            transition: border-color ease-in-out .08s,box-shadow ease-in-out .08s;
+        }
+        #createCourse form input:focus{
+            border-color: rgba(0,119,145,.5);
+            outline: none;
+            box-shadow: none;
+            box-shadow: inset 0 0 1px rgba(0,119,145,.5);
+        }
+        #createCourse form .my-own-button{
+            border: 1px solid transparent;
+            text-align: center;
+            vertical-align: middle;
+            touch-action: manipulation;
+            white-space: nowrap;
+            padding: 11px 12px;
+            line-height: 1.35135;
+            border-radius: 2px;
+            user-select: none;
+            font-size: 16px;
+            font-weight: 700;
+            height: 48px;
+            margin-bottom: 16px;
+            width: 100%;
+            color: #fff;
+            background-color: #ec5252;
+        }
+        #createCourse form .my-own-button:hover{
+            color: #fff;
+            background-color: #992337;
+            border-color: transparent;
+        }
+        .select-css {
+    display: block;
+    font-size: 16px;
+    font-family: sans-serif;
+    font-weight: 400;
+    color: #29303b;
+    line-height: 1.43;
+    padding: .6em 1.4em .5em .8em;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #8a92a3;
+    border-radius: 2px;
+    box-shadow: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+      linear-gradient(to bottom, #fff 0%,#fff 100%);
+    background-repeat: no-repeat, repeat;
+    background-position: right .7em top 50%, 0 0;
+    background-size: .65em auto, 100%;
+}
+.select-css::-ms-expand {
+    display: none;
+}
+.select-css:hover {
+    border-color: #888;
+}
+.select-css:focus {
+    border-color: #aaa;
+    box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    color: #222; 
+    outline: none;
+}
+
+.select-css option {
+    font-weight:normal;
+}
+
+*[dir="rtl"] .select-css, :root:lang(ar) .select-css, :root:lang(iw) .select-css {
+    background-position: left .7em top 50%, 0 0;
+    padding: .6em .8em .5em 1.4em;
+}
+
+.select-css:disabled, .select-css[aria-disabled=true] {
+    color: graytext;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22graytext%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+      linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%);
+}
+
+.select-css:disabled:hover, .select-css[aria-disabled=true] {
+    border-color: #aaa;
+}
+#dfg{
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 1.43;
+    border-bottom: solid 1px #dedfe0;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    color: #29303b;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+.link-tag{
+    color: #29303b;
+    font-size: 16px;
+    line-height: 1.43;
+    margin-left: 10px;
+}
+.link-tag:hover{
+    color: black;
+}
+sup{
+    color: red;
+}
+</style>
+<style>
+    #createCourse{
+        margin-bottom: 50px;
+    }
+    #content{
+        margin-bottom: 10px;
+    }
+    #content .section{
+        border: 1px solid #cacbcc;
+        background-color: #f2f3f5;
+        width: 100%;
+        padding: 25px 10px;
+    }
+    #content .sec-constant{
+        display: inline-block;
+        font-size: 15px;
+        line-height: 1.43;
+        color: #29303b;
+        font-weight: 700;
+    }
+    #content .sec-title{
+        display: inline-block;
+        font-size: 15px;
+        line-height: 1.43;
+        color: #29303b;
+    }
+    .bi-file-earmark-text{
+        font-size: 15px;
+        line-height: 1.43;
+    }
+    #content .icons{
+        display: none;
+
+    }
+    .new-icon-button{
+        color: #686f7a;
+        font-size: 13px;
+        border: none;
+        background-color: #f2f3f5;
+        margin: 0;
+        padding:0 3px;
+    }
+    .new-icon-button:hover{
+        color:#29303b;
+        background-color: white;
+        border-radius: 1px;
+
+    }
+    .add-section{
+        margin-top: 10px;
+        font-size: 14px;
+        border: none;
+        background-color: white;;
+        border: 1px dashed white;
+        padding: 6px 3px 2px 3px;
+    }
+    .add-section:hover{
+        border:1px dashed #003845;
+        color: #003845;
+
+    }
+    .section-create{
+        border: 1px solid #cacbcc;
+        width: 100%;
+        padding: 15px 10px;
+    }
+    .section-create span{
+        font-size: 15px;
+        line-height: 1.43;
+        color: #29303b;
+        font-weight: 700;
+    }
+   .my-cancel-tag{
+       margin-top: 7px;
+    color:#007791 !important;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.35135;
+   }    
+   .my-cancel-tag:hover{
+       color:#003440;
+       text-decoration: none;
+   }
+   .my-save-btn{
+        border:none;
+        color: #fff;
+        background-color: #007791;
+        border: 1px solid transparent;
+        padding: 6px 10px;
+        font-size: 15px;
+        line-height: 1.35135;
+        border-radius: 2px;
+        cursor: pointer;
+        font-weight: 700;
+   }
+   .my-save-btn:hover{
+    color: #fff;
+    background-color: #00576b;
+    border-color: transparent;
+   }
+   #content form .new-input, #new-content form .new-input{
+    width: 100%;
+    height: 34px;
+    font-size: 13px;
+    line-height: 1.287;
+    border-radius: 2px;
+    padding-right: 40px !important;
+   }
+   .col-11{
+       padding-left: 0 !important;
+   }
+   .col-1{
+       padding-right: 0 !important;
+   }
+   .sections{
+       list-style: none;
+   }
+   .sections li{
+       background-color: white !important;
+   }
+   .sections .lecture{
+        border: 1px solid #cacbcc;
+        padding: 10px;
+   }
+   .ex{
+        background-color: #f2f3f5;
+        border-color: #f2f3f5; 
+    }
+    .my-create{
+            border: 1px solid transparent;
+            text-align: center;
+            padding: 10px 25px;
+            line-height: 1.35135;
+            border-radius: 2px;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #fff;
+            background-color: #ec5252;
+        }
+        .my-create:hover{
+            color: #fff;
+            text-decoration: none;
+            background-color: #992337;
+            border-color: transparent;
+        }
+</style>
+<script>
+    tinymce.init({
+    selector: 'textarea',
+    menubar: false,
+    plugins: 'bold italic h1 h2 h3 p alignleft aligncenter alignright linkchecker lists tinymcespellchecker',
+    toolbar: 'spellchecker h1 h2 h3 p alignleft aligncenter alignright bold italic numlist bullist',
+    toolbar_mode: 'floating',
+    spellchecker_language: 'en',
+    spellchecker_dialog: true,
+    content_css: [
+      '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+      '//www.tinymce.com/css/codepen.min.css']
+  });
+  </script>
+  <div id="createCourse">
+      <div style="width: 100%;" class="d-flex justify-content-between">
+        <a class="link-tag mb-2" href="{% url 'instructor' %}"><i class="fas fa-arrow-left mr-2"></i>Back</a>
+        <a href="{% url 'viewcoursecontent' course.id %}" target="_blank" class="my-create">Preview</a>
+    </div>
+    <div>Created: {{course.created}}</div>
+    <div>Last Updated: {{course.updated}}</div>
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Edit Detail</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Add Content</a>
+    </li>
+  </ul>
+  <div class="tab-content mt-4" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <h1 id="dfg" class="text-center">Edit course</h1>
+            <form action="{% url 'editCourse' course.id %}" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+                        <div class="form-group">
+                            <label>Course Title<sup>*</sup></label>
+                            <input autofocus class="form-control" required type="text" name="title" value="{{course.title}}">
+                        </div>
+                        <div class="form-group">
+                            <label>Course Image Link<sup>*</sup></label>
+                            <input autofocus class="form-control" required type="text" name="image" value="{{course.image_link}}">
+                        </div>
+                        <div class="form-group">
+                            <label>Course Level<sup>*</sup></label>
+                            <select class="select-css" required name="level">
+                                {% for level in levels %}
+                                {% if level.id == course.level.id%}
+                                <option value="{{level.id}}" selected>{{level}}</option>
+                                {% else %}
+                                <option value="{{level.id}}">{{level}}</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Course Subtitle Language</label>
+                            <select class="select-css" name="subtitle_language" multiple>
+                                {% for language in languages %}
+                                    {% if language in course.subtitle_language.all %}
+                                        <option value="{{language.id}}" selected>{{language}}</option>
+                                        {% else %}
+                                        <option value="{{language.id}}">{{language}}</option>
+                                        {% endif %}
+                                    
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Course Message (When student take the course, message will sent him/her automatically)</label>
+                            <textarea name="course_message" style="height: 233px;" class="form-control">{{course.course_message}}</textarea>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="form-group">
+                            <label>Course Subtitle<sup>*</sup></label>
+                            <input class="form-control" required type="text" name="subtitle" value="{{course.subtitle}}">
+                        </div>
+                        <div class="form-group">
+                            <label>Course Price<sup>*</sup> (0 means Free)</label>
+                            <input class="form-control" required type="number" step="0.01" name="price" value="{{course.price}}">
+                        </div>
+                        <div class="form-group">
+                            <label>Course Language<sup>*</sup></label>
+                            <select class="select-css" required name="language">
+                                {% for language in languages %}
+                                {% if language.id == course.language.id %}
+                                <option value="{{language.id}}" selected>{{language}}</option>
+                                {% else %}
+                                <option value="{{language.id}}">{{language}}</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Course Category<sup>*</sup></label>
+                            <select class="select-css" required name="category">
+                                {% for category in categories %}
+                                {% if category.id == course.category.id %}
+                                <option value="{{category.id}}" selected>{{category}}</option>
+                                {% else %}
+                                <option value="{{category.id}}">{{category}}</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Course Description<sup>*</sup> (Write your description as a markdown text)</label>
+                            <textarea name="description" required style="height: 300px;" class="form-control">{{course.description}}</textarea>
+                        </div>
+                    </div>
+                    <button class="my-own-button">Update Course</button>
+                </div>
+                
+            </form>
+        </div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <h1 id="dfg" class="text-center">Add/Edit Content</h1>
+        <div id="content" data-courseid="{{course.id}}">
+            
+        </div>
+        <div id="add-content">
+            <button id="add-c" class="add-section"><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-plus mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"/>
+                <path fill-rule="evenodd" d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"/>
+              </svg>Add new Section</button>
+        </div>
+        <div id="new-content" class="d-none">
+            <div class="section-create mt-4">
+                <form id="formm">
+                    <span>New Section:</span>
+                    <input required id="getinput" placeholder="Enter title" class="new-input" type="text" style="display: inline-block;width: 91%;">
+                    <div class="d-flex justify-content-end mt-2" style="width: 100%;">
+                        <a id="cancel-section" class="my-cancel-tag mr-2">Cancel</a>
+                        <button class="my-save-btn">Create Section</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+        let add_button = document.getElementById('add-c')
+        let add_content = document.getElementById('add-content')
+        let add_new_content = document.getElementById('new-content')
+        let cancel = document.getElementById('cancel-section')
+        add_button.onclick = () => {
+            add_content.classList.add('d-none')
+            add_new_content.classList.remove('d-none')
+        }
+        cancel.onclick = () => {
+            add_content.classList.remove('d-none')
+            add_new_content.classList.add('d-none')
+        }
+        course_id = document.getElementById('content').dataset.courseid;
+        fetchAndDisplay(course_id)
+
+        document.getElementById('formm').onsubmit = () =>{
+            let its_input = document.getElementById('getinput')
+            console.log(its_input.value)
+            fetch(`/instructor/addsection/${course_id}`,{
+                method: 'POST',
+                credentials: "same-origin",
+                headers: {
+                "X-CSRFToken": getCookie("csrftoken"),
+                "Accept": "application/json",
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title: its_input.value,
+                })
+            })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById('content').innerHTML = ''
+                fetchAndDisplay(course_id)
+                its_input.value = ''
+                add_content.classList.remove('d-none')
+                add_new_content.classList.add('d-none')
+            })
+            return false;
+        }
+    })
+
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function fetchAndDisplay(course_id){
+        let count = 0;
+        fetch(`/instructor/course/${course_id}`)
+        .then(response => response.json())
+        .then(result => {
+            result.content.forEach(section => {
+                count++;
+                createSection(section, count)
+            });
+        })
+    }
+
+
+    function createSection(section, count){
+        const maindiv = document.createElement('div');
+        maindiv.classList.add(`section-${section.id}`)
+        maindiv.classList.add('section')
+        maindiv.classList.add('mt-3')
+
+        const sec_constant = document.createElement('div')
+        sec_constant.classList.add('sec-constant')
+        sec_constant.classList.add('mr-1')
+        sec_constant.innerHTML = `Section ${count}:`
+
+        const sec_title = document.createElement('div')
+        sec_title.classList.add('sec-title')
+        sec_title.innerHTML = `<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z"/>
+            <path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z"/>
+            <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+          </svg>${section.title}`
+
+        const icons = document.createElement('div')
+        icons.classList.add('icons')
+
+        const second_button = document.createElement('button')
+        second_button.classList.add('new-icon-button')
+        second_button.innerHTML = '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">'+
+                '<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>'+
+                '<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>'+
+              '</svg>'
+
+        second_button.onclick = () => {
+            fetch(`/instructor/deletesection/${section.id}`)
+            .then(response => response.json())
+            .then(result => {
+                course_id = document.getElementById('content').dataset.courseid;
+                document.getElementById('content').innerHTML = ''
+                fetchAndDisplay(course_id)
+            })
+        }
+
+        icons.append(second_button)
+
+        maindiv.append(sec_constant)
+        maindiv.append(sec_title)
+        maindiv.append(icons)
+        maindiv.onmouseover = () => {
+            icons.style.display = 'inline-block'
+        }
+        maindiv.onmouseout = () => {
+            icons.style.display = 'none'
+        }
+        
+        const mainul = document.createElement('ul')
+        mainul.classList.add('sections')
+        
+        let lec_number = 0;
+        section.lecture.forEach(lecture => {
+            lec_number++
+            createModal(lecture, lec_number)
+            mainul.append(createLecture(lecture, lec_number))
+        })
+
+        const add_li = document.createElement('li')
+        add_li.id = `new-content-${section.id}`
+        add_li.classList.add('d-none')
+        add_li.innerHTML = `<div class="section-create mt-4">
+            <form id='form-${section.id}'>
+                <div class="row">
+                    <div class="col-2">
+                    <span>New Lecture:</span>
+                </div>
+                <div class="col-10">
+                    <input required placeholder="Enter title" class="new-input mb-3" type="text" 
+                    style="display: inline-block;width: 91%;">
+                </div>
+            </div>
+                    <div class="row">
+                    <div class="col-2">
+                    <span>Youtube Video ID</span>
+                    </div>
+                    <div class="col-10">
+                    <input required placeholder="Enter video id" style="display: inline-block;width: 91%;" class="thisone new-input" type="text">
+                    </div>
+                </div>
+                    <div class="d-flex justify-content-end mt-2" style="width: 100%;">
+                        <a id="cancel-section-${section.id}" class="my-cancel-tag mr-2">Cancel</a>
+                        <button class="my-save-btn">Add Lecture</button>
+                    </div>
+                </form>
+            </div>`
+
+
+
+
+        const add_content_div = document.createElement('div')
+        add_content_div.id = `add-content-${section.id}`
+        const button_add_ = document.createElement('button')
+        button_add_.id = `add-c-${section.id}`
+        button_add_.classList.add('add-section')
+        button_add_.classList.add('ex')
+        button_add_.innerHTML = `<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-plus mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"/>
+                <path fill-rule="evenodd" d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"/>
+              </svg>Add new Lecture`
+        add_content_div.append(button_add_)     
+        button_add_.onclick = () => {
+            add_content_div.classList.add('d-none')
+            add_li.classList.remove('d-none')
+        }
+        mainul.append(add_li)
+        maindiv.append(mainul)
+        maindiv.append(add_content_div)
+
+        
+        document.getElementById('content').append(maindiv)
+        document.getElementById(`cancel-section-${section.id}`).onclick = () => {
+            add_content_div.classList.remove('d-none')
+            add_li.classList.add('d-none')
+        }
+        document.getElementById(`form-${section.id}`).onsubmit = () => {
+            let iinnput = document.querySelector(`#form-${section.id} input`);
+            let link_input = document.querySelector(`#form-${section.id} .thisone`)
+            fetch(`/instructor/addlecture/${section.id}`,{
+                method: 'POST',
+                credentials: "same-origin",
+                headers: {
+                "X-CSRFToken": getCookie("csrftoken"),
+                "Accept": "application/json",
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title: iinnput.value,
+                    link: `https://www.youtube.com/embed/${link_input.value}?&autoplay=1`
+                })
+            })
+            .then(response => response.json())
+            .then(result => {
+                let cont = document.getElementById('content')
+                cont.innerHTML = ''
+                fetchAndDisplay(cont.dataset.courseid)
+                iinnput.value = ''
+                link_input.value = ''
+                add_content_div.classList.remove('d-none')
+                add_li.classList.add('d-none')
+            })
+
+            return false;
+        }
+
+    }
+
+    function createLecture(lecture, lec_number){
+        const litag = document.createElement('li')
+        litag.classList.add(`lecture-${lecture.id}`)
+        litag.classList.add('mb-3')
+        const div = document.createElement('div')
+        div.classList.add('lecture')
+
+        litag.append(div)
+        const sec_constant = document.createElement('div')
+        sec_constant.classList.add('sec-constant')
+        sec_constant.classList.add('mr-1')
+        sec_constant.innerHTML = `Lecture ${lec_number}:`
+
+        const sec_title = document.createElement('div')
+        sec_title.classList.add('sec-title')
+        sec_title.innerHTML = `<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z"/>
+            <path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z"/>
+            <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+          </svg><span class='ml-1 mr-1'>${lecture.title}</span>`
+
+        const icons = document.createElement('div')
+        icons.classList.add('icons')
+
+        const second_button = document.createElement('button')
+        second_button.classList.add('new-icon-button')
+        second_button.innerHTML = '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">'+
+                '<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>'+
+                '<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>'+
+              '</svg>'
+        second_button.style.backgroundColor = 'white'
+        second_button.onclick = () => {
+            fetch(`/instructor/deletelecture/${lecture.id}`)
+            .then(response => response.json())
+            .then(result => {
+                course_id = document.getElementById('content').dataset.courseid;
+                document.getElementById('content').innerHTML = ''
+                fetchAndDisplay(course_id)
+            })
+        }
+        icons.append(second_button)
+
+
+        div.append(sec_constant)
+        div.append(sec_title)
+        div.append(icons)
+        
+        litag.onmouseover = () => {
+            icons.style.display = 'inline-block'
+        }
+        litag.onmouseout = () => {
+            icons.style.display = 'none'
+        }
+
+        const row = document.createElement('div')
+        row.classList.add('row')
+        row.classList.add('mt-2')
+        const col_1 = document.createElement('div')
+        col_1.classList.add('col-1')
+        const col_9 = document.createElement('div')
+        col_9.classList.add('col-9')
+        const col_2 = document.createElement('div')
+        col_2.classList.add('col-2')
+        row.append(col_1)
+        row.append(col_9)
+        row.append(col_2)
+
+        const videodiv = document.createElement('div')
+        videodiv.classList.add('sec-constant')
+        videodiv.innerHTML = 'Video:'
+        col_1.append(videodiv)
+
+        const form = document.createElement('form')
+        const input = document.createElement('input')
+        input.value = lecture.video
+        input.classList.add('new-input')
+        input.type = 'text'
+        input.readOnly = 'true'
+        form.append(input)
+        col_9.append(form)
+
+        const btn = document.createElement('button')
+        btn.classList.add('my-save-btn')
+        btn.innerHTML = 'Watch Video'
+        btn.dataset.toggle = 'modal'
+        btn.dataset.target = `#example-modal-${lecture.id}`
+        col_2.append(btn)
+
+        div.append(row)
+        return litag;
+    }
+
+    function createModal(lecture, lec_number){
+        const maindiv = document.createElement('div')
+        maindiv.classList.add('modal')
+        maindiv.classList.add('fade')
+        maindiv.id = `example-modal-${lecture.id}`
+        maindiv.tabIndex = '-1'
+        maindiv.setAttribute('aria-labelledby', 'exampleModalLabel')
+        maindiv.setAttribute('aria-hidden', 'true')
+
+        const dialog = document.createElement('div')
+        dialog.classList.add('modal-dialog')
+        dialog.classList.add('modal-lg')
+
+        const content = document.createElement('div')
+        content.classList.add('modal-content')
+
+        const header = document.createElement('div')
+        header.classList.add('modal-header')
+
+        const h5 = document.createElement('h5')
+        h5.classList.add('modal-title')
+        h5.id = 'exampleModalLabel'
+        h5.innerHTML = `Lecture ${lec_number}: ${lecture.title}`
+        h5.style.fontWeight = '700'
+
+        const buttonx = document.createElement('button')
+        buttonx.type = 'buttton'
+        buttonx.classList.add('close')
+        buttonx.dataset.dismiss = 'modal'
+        buttonx.setAttribute('aria-label', 'Close')
+        const spanx = document.createElement('span')
+        spanx.setAttribute('aria-hidden', 'true')
+        spanx.innerHTML = '&times;'
+        buttonx.append(spanx)
+        header.append(h5)
+        header.append(buttonx)
+        
+        const body = document.createElement('div')
+        body.classList.add('modal-body')
+        const iframe = document.createElement('iframe')
+        iframe.style.width = '100%'
+        iframe.height = '400'
+        video_index = lecture.video.indexOf('?')
+        iframe.src = lecture.video.substring(0, video_index)
+        iframe.frameBorder = '0'
+        iframe.allow = 'accelerometer; encrypted-media; gyroscope; picture-in-picture'
+        iframe.allowFullscreen = 'true'
+        body.append(iframe)
+        const footer = document.createElement('div')
+        footer.classList.add('modal-footer')
+        const newbutton = document.createElement('button')
+        newbutton.type = 'button'
+        newbutton.classList.add('my-save-btn')
+        newbutton.dataset.dismiss = 'modal'
+        newbutton.innerHTML = 'Close'
+        footer.append(newbutton)
+
+
+        content.append(header)
+        content.append(body)
+        content.append(footer)
+        dialog.append(content)
+        maindiv.append(dialog)
+        document.querySelector('body').append(maindiv)
+    }
+</script>
+
+
+{% endblock %}
