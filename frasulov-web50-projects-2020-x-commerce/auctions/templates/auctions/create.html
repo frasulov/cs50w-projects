@@ -1,0 +1,32 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h1 class="mt-5 mb-3 text-center">Add New Entry</h1>
+    <div style="width: 70%;margin-left: 15%">
+    <form action="{% url 'create' %}" method="post">
+        {% csrf_token %}
+      <div class="form-group">
+        <input type="text" class="form-control" name="title" placeholder="Add title" required>
+      </div>
+        <div class="form-group">
+            <input class="form-control" name="bid" type="number" step="0.01" placeholder="Starting Bid" required>
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="url" type="text" placeholder="Image url">
+        </div>
+      <div class="form-group">
+        <select class="form-control" id="exampleFormControlSelect1" name="category">
+          {% for category in categories %}
+                <option value="{{category.id}}">{{category}}</option>
+            {% endfor %}
+
+        </select>
+      </div>
+      <div class="form-group">
+        <textarea class="form-control" name="description" rows="3" placeholder="Add Description" required></textarea>
+      </div>
+        <button class="btn btn-outline-success">Create</button>
+    </form>
+    </div>
+
+{% endblock %}

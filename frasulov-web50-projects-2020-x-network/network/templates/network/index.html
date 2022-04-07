@@ -1,0 +1,34 @@
+{% extends "network/layout.html" %}
+{% load static %}
+{% block body %}
+
+    <!-- {% if user.is_authenticated %} -->
+    <div id="create" class="mt-5">
+        <div class="container">
+            <div class="bg-success d-none" id="message"></div>
+            <div class="bg-danger d-none" id="error" id="message"></div>
+            <form>
+                {% csrf_token %}
+                <input id="title" class="form-control" type="text" placeholder="Title">
+                <textarea id="body" class="form-control" placeholder="Post Body" style="height: 140px; margin-top: 20px;margin-bottom: 20px;"></textarea>
+                <input class="btn btn-success" type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+    <!-- {% endif %} -->
+    <div class="container mt-5" id="all">
+        <h2>All Posts</h2>
+    </div>
+
+    <nav class="d-flex justify-content-center" aria-label="Page navigation example">
+        <ul class="pagination">
+          <li id="previous" class="page-item"><a id="previousA" class="page-link" href="?page=0">Previous</a></li>
+          <li class="page-item"><p id="page" class="page-link" href="#">1</p></li>
+          <li id="next" class="page-item"><a id="nextA" class="page-link" href="?page=1">Next</a></li>
+        </ul>
+      </nav>
+
+<script src="{% static 'network/index.js' %}"></script>
+
+{% endblock %}
+

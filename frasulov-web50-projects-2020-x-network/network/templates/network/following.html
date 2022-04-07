@@ -1,0 +1,22 @@
+{% extends "network/layout.html" %}
+{% load static %}
+{% block body %}
+
+    <div class="container">
+        <h1 class="mt-3 mb-3">All following Posts</h1>
+        <div id="following">
+        </div>
+    </div>
+
+    <nav class="d-flex justify-content-center" aria-label="Page navigation example">
+        <ul class="pagination">
+          <li id="previous" class="page-item"><a id="previousA" class="page-link" href="?page=0">Previous</a></li>
+          <li class="page-item"><p id="page" class="page-link" href="#">1</p></li>
+          <li id="next" class="page-item"><a id="nextA" class="page-link" href="?page=1">Next</a></li>
+        </ul>
+      </nav>
+
+<script src="{% static 'network/follow.js' %}"></script>
+
+{% endblock %}
+

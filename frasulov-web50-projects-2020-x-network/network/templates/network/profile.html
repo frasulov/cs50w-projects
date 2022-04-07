@@ -1,0 +1,103 @@
+{% extends "network/layout.html" %}
+{% load static %}
+{% block body %}
+
+<div class="left">
+    <div class="photo-left">
+      <img class="photo" src="https://images.pexels.com/photos/1804796/pexels-photo-1804796.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
+    </div>
+    <h4 class="name">{{user.username}}</h4>
+    <p class="info">{{user.email}}</p>
+    <div class="stats row">
+      <div class="stat col-xs-4" style="padding-right: 50px;">
+        <p type="button" class="number-stat" data-toggle="modal" data-target="#exampleModal">{{followers}}</p>
+        <p class="desc-stat">Followers</p>
+      </div>
+      <div class="stat col-xs-4">
+        <p type="button" class="number-stat" data-toggle="modal" data-target="#exampleModal-2">{{followings}}</p>
+        <p class="desc-stat">Following</p>
+      </div>
+      <div class="stat col-xs-4" style="padding-left: 50px;">
+        <p class="number-stat">{{nposts}}</p>
+        <p class="desc-stat">Posts</p>
+      </div>
+    </div>
+    {% if request.user != user %}
+    <div>
+        {% if follow %}
+        <button id="follow" class="btn btn-danger mt-3">Unfollow</button>
+        {% else %}
+        <button id="follow" class="btn btn-success mt-3">Follow</button>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+
+
+<div class="modal fade" id="exampleModal-2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel-2">Followings</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div id="followings">
+              {% for f in fing %}
+            <div class="user-follow">
+                <img class="user-photo" src="https://images.pexels.com/photos/1804796/pexels-photo-1804796.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
+                <a class="ml-1" href="">{{f.username}}</a>
+            </div>
+              {% endfor %}
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Followers</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div id="followers">
+              {% for f in fers %}
+            <div class="user-follow">
+                <img class="user-photo" src="https://images.pexels.com/photos/1804796/pexels-photo-1804796.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
+                <a class="ml-1" href="">{{f.username}}</a>
+            </div>
+              {% endfor %}
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container mt-2">
+  <h2 class="mb-3">All posts</h2>
+  <div id="all" data-user="{{user.username}}">
+
+  </div>
+</div>
+
+<nav class="d-flex justify-content-center" aria-label="Page navigation example">
+  <ul class="pagination">
+    <li id="previous" class="page-item"><a id="previousA" class="page-link" href="?page=0">Previous</a></li>
+    <li class="page-item"><p id="page" class="page-link" href="#">1</p></li>
+    <li id="next" class="page-item"><a id="nextA" class="page-link" href="?page=1">Next</a></li>
+  </ul>
+</nav>
+
+<script src="{% static 'network/profile.js' %}"></script>
+
+{% endblock %}

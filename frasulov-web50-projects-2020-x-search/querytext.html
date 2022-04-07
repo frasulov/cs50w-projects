@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="https://i.pinimg.com/originals/39/21/6d/39216d73519bca962bd4a01f3e8f4a4b.png" type="image/icon type">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/fed34ed002.js" crossorigin="anonymous"></script> 
+    <link rel="stylesheet" href="style.css">
+    <title>Google</title>
+  </head>
+  <body>
+
+    <!-- <div class="top">
+        <ul>
+            <li><a href="">Image Search</a></li>
+            <li><a href="">Advanced Search</a></li>
+            <li><a href="">Gmail</a></li>
+            <li><a href="">Images</a></li>
+            <li><a href="">Logo</a></li>
+            <li><a href="">Picture</a></li>
+        </ul>
+    </div> -->
+
+
+
+    <ul class="nav justify-content-end">
+        <li class="nav-item">
+        <a class="my-link" href="./queryimage.html">Image Search</a>
+        </li>
+        <li class="nav-item">
+        <a class="my-link" href="./queryadvanced.html" style="padding-right: 30px;">Advanced Search</a>
+        </li>        
+    </ul>
+
+
+    <div class="search">
+        <img src="./google.png" alt="Image">
+    </div>
+    
+
+    <div id="mm" class="main">
+        <form action="https://google.com/search">
+        <div class="main-inside">
+            <div class="search-logo">
+                <i class="fas fa-search"></i>
+            </div>
+            <div id="write">
+                <div id="in-tag" class="input-tag input-style">
+                    <abbr title="Search"><input id="text-write" type="text" name="q" oninput="myFunction()"></abbr>   
+                </div>
+            </div>
+            <div id="x-logo" class="d-none xx">
+                <abbr title="Clear"><i id="exit-btn" class="fas fa-times" style="border-right: 1px solid #dfe1e5; padding-right: 16px;padding-left: 4px;"></i></abbr>
+            </div>
+            <div class="mic">
+                <img src="./googlemic.png" alt="">
+            </div>
+        </div>
+    </div>
+
+        <!-- <input type="text" /> -->
+        <div class="buttons mt-4">
+            <div class="d-flex justify-content-center">
+                <input class="button-style my-button" type="submit" value="Google Search">
+                <a id="re" class="my-button button-style feel-luck" href="" style="display: inline-block;">I'm Feeling Lucky</a>
+            </div>
+        </div>
+        </form>
+
+
+        <div class="language d-flex justify-content-center mt-3">
+            <p>Google offered in: <a href="">English</a> <a href="">Azerbaijani</a></p>
+        </div>
+
+
+        <div class="footer fixed-bottom">
+            <div class="first-part">
+                <p>Azerbaijan</p>
+            </div>
+            <div class="second-part">
+                <div class="left-part">
+                    <a href="https://ads.google.com/intl/en_az/home/?subid=ww-ww-et-g-awa-a-g_hpafoot1_1!o2&utm_source=google.com&utm_medium=referral&utm_campaign=google_hpafooter&fg=1">Advertising</a>
+                    <a href="https://www.google.com/services/?subid=ww-ww-et-g-awa-a-g_hpbfoot1_1!o2&utm_source=google.com&utm_medium=referral&utm_campaign=google_hpbfooter&fg=1#?modal_active=none">Business</a>
+                    <a href="https://about.google/?utm_source=google-AZ&utm_medium=referral&utm_campaign=hp-footer&fg=1">About</a>
+                    <a href="https://www.google.com/search/howsearchworks/?fg=1">How Search Works</a>
+                    <span style="float: right;">
+                    <a href="https://policies.google.com/privacy?fg=1">Privacy</a>
+                    <a href="https://policies.google.com/terms?fg=1">Terms</a>
+                    <a href="" style="padding-right: 30px;">Settings</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script>
+        function myFunction(){
+            var z1 = document.getElementById("re");
+            var dd = document.getElementById("x-logo");
+            var d1 = document.getElementById("text-write");
+            dd.classList.remove("d-none");
+            document.getElementById("in-tag").classList.add("while-typing");
+            document.getElementById("write").classList.remove("while-typing");
+        
+            if(d1.value.length == 0){
+                dd.classList.add("d-none");
+                document.getElementById("in-tag").classList.remove("while-typing");
+                return;
+            }
+            
+            document.getElementById("write").classList.add("while-typing");
+            z1.href = "https://google.com/search?q="+d1.value+"&btnI";
+        } 
+
+        
+        document.getElementById("exit-btn").addEventListener("click", function(){
+            document.getElementById("text-write").value = "";
+            myFunction();
+        })
+        document.getElementById("text-write").addEventListener("click", function(){
+            document.getElementById("mm").classList.add("cc");
+        })
+        document.getElementById("text-write").addEventListener("focusout", function(){
+            document.getElementById("mm").classList.remove("cc");
+        })
+
+        
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  </body>
+</html>

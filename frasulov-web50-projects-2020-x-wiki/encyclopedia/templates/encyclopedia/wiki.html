@@ -1,0 +1,16 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    {{ name }}
+{% endblock %}
+
+{% block body %}
+    {% if content == None %}
+        <h1>Page not Found</h1>
+        <p>The requested term, <strong>{{name}}</strong>, does not exist in our database, currently!</p>
+    {% else %}
+    {{ content | safe }}
+    <a href="/wiki/{{name}}/edit">Edit Description</a>
+    {% endif %}
+
+{% endblock %}

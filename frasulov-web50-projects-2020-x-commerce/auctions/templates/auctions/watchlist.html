@@ -1,0 +1,12 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Watch Listings</h2>
+    <ul>
+        {% for auction in auctions %}
+            <li>
+                <a href="{% url 'info' auction.id %}">Item: {{ auction.title }}, Starting bid: {{ auction.starting_bid}}, Created by: {{ auction.creator}}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

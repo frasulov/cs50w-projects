@@ -1,0 +1,23 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h1>Categoriy name: {{category}}</h1>
+
+    <div style="width: 97%; margin-left:1.5%">
+        {% for auction in auctions %}
+           <div class="row auction">
+               <div class="col-5">
+                   <img src="{{auction.img_url}}" alt="">
+               </div>
+               <div class="col-7">
+                   <h4 class="mt-3">{{auction.title}}</h4>
+                   <h6>Price: ${{auction.starting_bid}}</h6>
+                   <p>{{auction.description}}</p>
+                   <p>Created: {{auction.created}}</p>
+                   <a class="btn btn-primary" href="{% url 'info' auction.id %}">Visit Item</a>
+               </div>
+           </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

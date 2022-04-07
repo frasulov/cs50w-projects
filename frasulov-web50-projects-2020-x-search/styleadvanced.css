@@ -1,0 +1,159 @@
+body{
+    background-color: white;
+    color: black;
+    font-family: Arial, sans-serif;
+}
+
+
+.footer{
+    font-size: 14px;
+    height: 81.25px;
+    background-color: red;
+    width: 100%;
+    color: rgba(0,0,0,.54);
+    background-color: #f2f2f2;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.footer .first-part{
+    height: 40.25px;
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+}
+
+.footer .first-part p{
+    margin-left: 30px;
+    line-height: 40px;
+}
+
+.footer .second-part a{
+    color: rgba(0,0,0,.54);
+    padding-left: 27px;
+    line-height: 40px;
+}
+
+
+.navbar #ss .my-link{
+    padding-left: 15px;
+    line-height: 24px;
+    vertical-align: middle;
+    font-size: 13px;
+    outline: none;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+nav{
+    width: 100%;
+    height: 60px;
+    background-color: #f1f1f1;
+}
+
+nav img{
+    width: 92px;
+    height: 33px;
+}
+
+.navbar{
+    height: 60px !important;
+    width: 100%;
+    background-color: #f1f1f1 !important;
+}
+
+#addv{
+    font-size: 20px;
+    margin: 25px 35px;
+    padding:0;
+
+}
+
+#addv .dd{
+    margin-left: 10px;
+    font-weight: inherit;
+    font-style: inherit;
+    color: #d93025;
+    padding: 0;
+}
+
+.hrr{
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid #ebebeb;
+    
+}
+
+#advanced-search{
+    margin-left: 45px;
+}
+
+.ff{
+    font-size: 16px;
+    color: #333;
+}
+
+#advanced-search input{
+    width: 572px;
+    height: 29px;
+}
+
+form .left{
+    color: #222;
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: inherit;
+    font-style: inherit;
+}
+
+form .right{
+    color: #555;
+    font-size: 11px;
+    font-weight: inherit;
+    font-style: inherit;
+}
+
+form .row{
+    margin-bottom: 12px;
+}
+
+form{
+    margin-top:14px;
+}
+
+form .zz{
+    border: 1px solid #d9d9d9;
+    border-radius: 1px;
+    border-top: 1px solid #c0c0c0;
+    font-size: 13px;
+    text-align: left;
+    padding: 1px 8px;
+}
+
+form .zz:focus{
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+    border: 1px solid #4d90fe;
+    outline: none;
+    border-radius: 1px;
+    padding: 1px 8px;
+}
+
+.ss{
+
+    background-color: #4d90fe;
+    color: white;
+    border: 1px solid #2f5bb7;
+    border-image: initial;
+    float: right;
+    width: 123px !important;
+    height: 30px;
+    font-size: 11px;
+    font-weight: bold;
+    border-radius: 2px;
+    text-align: center;
+    padding: 0 12px;
+}
+
+.ss:hover{
+    background-color: #357ae8;
+}
+
+/* 357ae8 */

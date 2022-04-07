@@ -1,0 +1,15 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Encyclopedia
+{% endblock %}
+
+{% block body %}
+    <h1 class="mt-5 text-center">Add New Entry</h1>
+    <form class="add-form" action="{% url 'add' %}" method="post">
+        {% csrf_token %}
+        {{ addform }}
+        <button class="btn btn-primary" style="width: 100%;">Save</button>
+    </form>
+
+{% endblock %}

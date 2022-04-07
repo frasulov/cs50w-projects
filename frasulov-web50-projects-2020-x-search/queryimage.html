@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="https://i.pinimg.com/originals/39/21/6d/39216d73519bca962bd4a01f3e8f4a4b.png" type="image/icon type">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/fed34ed002.js" crossorigin="anonymous"></script> 
+    <link rel="stylesheet" href="style.css">
+    <title>Google</title>
+  </head>
+  <body>
+
+
+    <ul class="nav justify-content-end">
+        <li class="nav-item">
+        <a class="my-link" href="./querytext.html">Google Search</a>
+        </li>
+        <li class="nav-item">
+        <a class="my-link" href="./queryadvanced.html" style="padding-right: 30px;">Advanced Search</a>
+        </li>        
+    </ul>
+
+
+    <div class="search">
+        <img src="./google image.png" alt="Image">
+    </div>
+    
+
+    <div id="mainn" class="main">
+        <form action="https://google.com/search">
+        <div class="main-inside">
+            <div class="search-logo">
+                <i class="fas fa-search"></i>
+            </div>
+    
+
+            <div id="write" class="normal-time">
+                <div id="in-tag" class="input-tag-1 input-style">
+                    <abbr title="Search"><input id="text-write" class="normal-time" type="text" name="q" oninput="myFunction()"></abbr>   
+                </div>
+            </div>
+            <div id="x-logo" class="d-none xx">
+                <abbr title="Clear"><i id="exit-btn" class="fas fa-times" style="border-right: 1px solid #dfe1e5; padding-right: 16px;padding-left: 4px;margin-right: 10px;"></i></abbr>
+            </div>
+            <div class="camera">
+                <abbr title="Search by image">
+                <i id="camera-btn" class="fas fa-camera"></i>
+                </abbr>
+            </div>
+            <div class="mic">
+                <abbr title="Search by Voice">
+                <img src="./googlemic.png" alt="">
+                </abbr>
+            </div>
+            <div class="search-last">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+    </div>
+        </form>
+
+
+        <div id="mainn-image" class="main-image d-none">
+            <div class="text">
+                <p>Search by image<i id="back-search" class="fas fa-times" style="float: right;padding-top: 1px;font-size: 16px;"></i></p>    
+            </div>
+            <div class="second-text">
+                <p >Search Google with an image instead of text. Try dragging an image here.</p>
+            </div>
+            <nav>
+                <div class="nav nav-tabs mt-3" id="nav-tab" role="tablist">
+                  <a class="nav-item nav-link active" style="margin-left: 21px;" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Paste image URL</a>
+                  <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Upload an image</a>
+                </div>
+            </nav>
+            <div class="" style="width: 539px;height: 74.5px;margin-top: 0;background-color: #F5F5F5 !important;">
+              <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" style="margin-left: 21px;" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <form action="https://google.com/images" enctype="multipart/form-data" method="GET" class="url-form">
+                        <input autocomplete="off" name="q" spellcheck="false" type="text" class="image-url">
+                        <button id="btn-url" style="padding-top: 2px !important;">Search by image</button>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="nav-profile"  style="margin-left: 21px;" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <form action="" style="padding-top: 21.5px;">
+                        <input type="file" name="" id="">
+                    </form>
+                </div>
+              </div>
+              </div>
+        </div>
+
+        <!-- AIzaSyCw1VI-i-6_XQvDLlY7HaCIHzSH3nhuq7c  -->
+
+
+
+
+        <div class="footer fixed-bottom">
+            <div class="first-part">
+                <p>Azerbaijan</p>
+            </div>
+            <div class="second-part">
+                <div class="left-part">
+                    <a href="https://ads.google.com/intl/en_az/home/?subid=ww-ww-et-g-awa-a-g_hpafoot1_1!o2&utm_source=google.com&utm_medium=referral&utm_campaign=google_hpafooter&fg=1">Advertising</a>
+                    <a href="https://www.google.com/services/?subid=ww-ww-et-g-awa-a-g_hpbfoot1_1!o2&utm_source=google.com&utm_medium=referral&utm_campaign=google_hpbfooter&fg=1#?modal_active=none">Business</a>
+                    <a href="https://about.google/?utm_source=google-AZ&utm_medium=referral&utm_campaign=hp-footer&fg=1">About</a>
+                    <a href="https://www.google.com/search/howsearchworks/?fg=1">How Search Works</a>
+                    <span style="float: right;">
+                    <a href="https://policies.google.com/privacy?fg=1">Privacy</a>
+                    <a href="https://policies.google.com/terms?fg=1">Terms</a>
+                    <a href="" style="padding-right: 30px;">Settings</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script>
+
+        function myFunction(){
+            var dd = document.getElementById("x-logo");
+            var d1 = document.getElementById("text-write");
+            dd.classList.remove("d-none");
+            document.getElementById("write").classList.add("typing-time");
+            d1.classList.add("typing-time");
+            if(d1.value.length == 0){
+                dd.classList.add("d-none");
+                document.getElementById("write").classList.remove("typing-time");
+
+                d1.classList.remove("typing-time");
+            }
+            
+            documet.getElementById("in-tag").classList.add("typing-time");
+        } 
+
+        document.getElementById("exit-btn").addEventListener("click", function(){
+            document.getElementById("text-write").value = "";
+            myFunction();
+        })
+
+        document.getElementById("back-search").addEventListener("click", function(){
+            document.getElementById("mainn").classList.remove("d-none");
+            document.getElementById("mainn-image").classList.add("d-none");
+        })
+
+        document.getElementById("camera-btn").addEventListener("click", function(){
+            document.getElementById("mainn").classList.add("d-none");
+            document.getElementById("mainn-image").classList.remove("d-none");
+        })
+        document.getElementById("text-write").addEventListener("click", function(){
+            document.getElementById("mainn").classList.add("cc");
+        })
+        document.getElementById("text-write").addEventListener("focusout", function(){
+            document.getElementById("mainn").classList.remove("cc");
+        })
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  </body>
+</html>

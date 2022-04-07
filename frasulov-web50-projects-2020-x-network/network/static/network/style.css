@@ -1,0 +1,35 @@
+@keyframes hide {
+    0%{
+        opacity: 1;
+        height: 100%;
+        line-height: 100%;
+        padding:10px;
+        margin-bottom: 10px;
+    }
+    75%{
+        opacity: 0;
+        height: 100%;
+        line-height: 100%;
+        padding:10px;
+        margin-bottom: 10px;
+    }
+    100%{
+        opacity: 0;
+        height: 0;
+        line-height: 0;
+        padding: 0;
+        margin-bottom: 0;
+    }
+}
+
+#message, #error{
+    padding-left:15px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    border-radius: 6px;
+    animation-name: hide;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-play-state: paused;
+    color: white;
+}
